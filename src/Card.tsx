@@ -1,4 +1,4 @@
-import { CardDiv } from './style/styled'
+import { CardDiv, DescribeDiv, TitleCard, TypesDiv, Type } from './style/styled'
 
 interface CardProps {
     name: string
@@ -8,19 +8,24 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
+    const imgUrl = props.img.other['official-artwork'].front_default
+
     return (
         <CardDiv>
-            <h2>{props.id} - {props.name}</h2>
-            <img src={props.img.front_default} alt="" />
-            {
-                props.types.map((type: any) => {
-                    return (
-                        <div>
-                            <span>{type.type.name}</span>
-                        </div>
-                    )
-                })
-            }
+            <img src={imgUrl} alt="" />
+            <DescribeDiv>
+                <span>{props.id}</span>
+                <TitleCard>{props.name}</TitleCard>
+                <TypesDiv>
+                    {
+                        props.types.map((type: any) => {
+                            return (
+                                    <Type>{type.type.name}</Type>
+                            )
+                        })
+                    }
+                </TypesDiv>
+            </DescribeDiv>
         </CardDiv>
     )
 }

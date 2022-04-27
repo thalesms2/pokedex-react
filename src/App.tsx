@@ -7,7 +7,7 @@ function App() {
   const [pokemons, setPokemons] = useState<Array<{value: object}>>([])
   
   const fetchPokemons = () => {
-    for(let i = 1; i < 101; i++){
+    for(let i = 1; i < 20; i++){
       api.get(`pokemon/${ i }`)
         .then((response) => {
           setPokemons(pokemon => [...pokemon, response.data]);
