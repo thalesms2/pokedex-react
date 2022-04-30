@@ -24,9 +24,11 @@ function App() {
 
   return (
     <PokedexDiv>
-      {pokemons?.map((pokemon: any ) => {
+      {
+        pokemons?.map((pokemon: any ) => {
           return (<Card name={pokemon.name} id={pokemon.id} img={pokemon.sprites} types={pokemon.types}/>)
-      })}
+        })
+      }
     </PokedexDiv>
   )
 }
