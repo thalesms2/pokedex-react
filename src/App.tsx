@@ -1,36 +1,38 @@
-import { useState, useEffect } from 'react'
-import api from './api/api'
+import { Route, Routes } from 'react-router-dom'
+
 import Card from './Card'
 import { PokedexDiv } from './style/styled'
 
-function App() {
-  const [pokemons, setPokemons] = useState<Array<{value: object}>>([])
-  
-  const fetchPokemons = () => {
-    for(let i = 1; i < 20; i++){
-      api.get(`pokemon/${ i }`)
-        .then((response) => {
-          setPokemons(pokemon => [...pokemon, response.data]);
-        })
-        .catch((err) => {
-          console.error("ops! ocorreu um erro : " + err)
-        })
-    }
-  }
+import axios from 'axios'
+import { useQuery } from 'react-query'
 
-  useEffect(() => {
-    fetchPokemons()
-  }, [])
+export type Pokemon = {
+  name: string;
+  id: number;
+  sprites: any;
+  types: any;
+}
 
+export default function App() {
+  const { data, isFetching } = useQuery<Pokemon[]>('pokemons', async () => {
+    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20')
+
+    return response.data.results
+  }, {
+    staleTime: 1000 * 120, // 2 minutes
+  })
+  console.log(data)
   return (
     <PokedexDiv>
       {
-        pokemons?.map((pokemon: any ) => {
-          return (<Card name={pokemon.name} id={pokemon.id} img={pokemon.sprites} types={pokemon.types}/>)
+        data?.map((pokemon: any ) => {
+          return (
+            <div>
+              <span>{pokemon.name}</span>
+            </div>
+          )
         })
       }
     </PokedexDiv>
   )
 }
-
-export default App

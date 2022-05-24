@@ -15,6 +15,6 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
     }
     body {
-        background-color: black;
+        background-color: white;
     }
 `
