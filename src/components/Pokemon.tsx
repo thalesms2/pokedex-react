@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Type from './Type'
 
 interface PokemonProps {
     info: any
@@ -11,19 +12,22 @@ const CardDiv = styled.div`
     color: white;
     max-width: 200px;
     margin: .5em;
-    padding: .5em;
 `
 
 const DescribeDiv = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #808080;
+    background-color: #fff;
     padding: .5em;
 `
 
 const TitleCard = styled.span`
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 145%;
+    margin-bottom: 5px;
+    line-height: 125%;
+    text-transform: capitalize;
+    font-family: 'Flexo Light';
+    color: #313131;
 `
 
 const TypesDiv = styled.div`
@@ -31,27 +35,37 @@ const TypesDiv = styled.div`
     flex-direction: row;
 `
 
-const Type = styled.span`
-    background-color: #9BCC50;
-    color: black;
-    padding: .2em 1em;
-    margin-right: .5em;
+const IdParagraph = styled.p`
+    font-family: "Flexo",arial,sans-serif;
+    padding-top: 2px;
+    color: #919191;
+    font-size: 80%;
+    line-height: 125%;
+    margin: .5em 0;
 `
 
 export default function Pokemon(props: PokemonProps) {
     const imgUrl = props.info.sprites.other['official-artwork'].front_default
+    let id: string = ''
+    if(props.info.id < 10) {
+        id = `N°00${props.info.id}`
+    } else if(props.info.id < 100) {
+        id = `N°0${props.info.id}`
+    } else {
+        id = `N°${props.info.id}`
+    }
 
     return (
         <CardDiv>
             <img src={imgUrl} alt="" />
             <DescribeDiv>
-                <span>{props.info.id}</span>
+                <IdParagraph>{id}</IdParagraph>
                 <TitleCard>{props.info.name}</TitleCard>
                 <TypesDiv>
                     {
                         props.info.types.map((type: any) => {
                             return (
-                                <Type>{type.type.name}</Type>
+                                <Type type={type.type.name}/>
                             )
                         })
                     }
