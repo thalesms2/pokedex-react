@@ -1,10 +1,8 @@
-import { Route, Routes } from 'react-router-dom'
-
-import Card from './Card'
-import { PokedexDiv } from './style/styled'
-
 import axios from 'axios'
 import { useQuery } from 'react-query'
+import styled from 'styled-components'
+
+import Pokemon from './Pokemon'
 
 export type Pokemon = {
   name: string;
@@ -13,23 +11,30 @@ export type Pokemon = {
   types: any;
 }
 
-export default function App() {
-  const { data, isFetching } = useQuery<Pokemon[]>('pokemons', async () => {
-    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20')
+const PokedexDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`
 
-    return response.data.results
+export default function App() {
+  const { data } = useQuery<Pokemon[]>('pokemons', async () => {
+    let response: Array<Pokemon> = [] 
+    for(let i = 1; i < 20; i++) {
+      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+      response.push(res.data)
+    }
+    return response
   }, {
     staleTime: 1000 * 120, // 2 minutes
   })
-  console.log(data)
+
   return (
     <PokedexDiv>
       {
         data?.map((pokemon: any ) => {
           return (
-            <div>
-              <span>{pokemon.name}</span>
-            </div>
+              <Pokemon info={pokemon}/>
           )
         })
       }
