@@ -1,17 +1,23 @@
-import { GlobalStyles } from "./style/globalstyles";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { queryClient } from "./services/queryClient";
 import { QueryClientProvider } from "react-query";
-import { BrowserRouter } from "react-router-dom";
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import App from "./App";
+import Pokemon from "./Pokemon";
+
+import { GlobalStyles } from "./style/globalstyles";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <GlobalStyles />
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <Routes>
+          <Route path="/" element={<App />}/>
+          <Route path="pokemon" element={<Pokemon />}/>
+        </Routes>
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

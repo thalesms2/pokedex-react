@@ -4,14 +4,14 @@ interface HeaderProps {
     title: string
 }
 
-export default function Header(props: HeaderProps) {
+const Title = styled.h1`
+    color: #919191;
+    font-family: "Flexo-Regular",arial,sans-serif;
+    line-height: 125%;
+    font-size: 187.5%;
+`
 
-    const Title = styled.h1`
-        color: #919191;
-        font-family: "Flexo-Regular",arial,sans-serif;
-        line-height: 125%;
-        font-size: 187.5%;
-    `
+export default function Header(props: HeaderProps) {
 
     return(
         <div>

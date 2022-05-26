@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 import Pokemon from './components/Pokemon'
 import Header from './components/Header'
+import Filter from './components/Filter'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export type Pokemon = {
   name: string;
@@ -12,21 +15,40 @@ export type Pokemon = {
   types: any;
 }
 
-export default function App() {
-  const Content = styled.div`
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-  `
+const Content = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+`
 
-  const AppDiv = styled.div`
-    margin: 0 5em;
-  `
+const AppDiv = styled.div`
+  margin: 0 5em;
+`
+
+export default function App() {
+
+  const [search, setSearch] = useState<string>('')
+
+
+  const searchPokemon = async (value: string) => {
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
+    console.log(response.data)
+    return response.data
+  }
+  
+
+  const handleInputChange = (value: string) => {
+    setSearch(value)
+  }
+
+  const handleSubmitSearch = () => {
+    searchPokemon(search)
+  }
 
   const { data } = useQuery<Pokemon[]>('pokemons', async () => {
     let response: Array<Pokemon> = [] 
-    for(let i = 1; i < 200; i++) {
+    for(let i = 1; i < 152; i++) {
       const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
       response.push(res.data)
     }
@@ -38,6 +60,7 @@ export default function App() {
   return (
     <AppDiv>
       <Header title="Pokédex" />
+      <Filter handleInputChange={handleInputChange} value={search} handleSubmitSearch={handleSubmitSearch}/>
       <Content>
         {
           data?.map((pokemon: any ) => {
