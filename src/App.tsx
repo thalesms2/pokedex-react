@@ -73,3 +73,8 @@ export default function App() {
     </AppDiv>
   )
 }
+
+// TODO pokemon page with more information about it
+// TODO search page with the pokemon search
+
+
