@@ -65,7 +65,7 @@ export default function Pokemon(props: PokemonProps) {
                     {
                         props.info.types.map((type: any) => {
                             return (
-                                <Type type={type.type.name}/>
+                                <Type key={type.type.name} type={type.type.name}/>
                             )
                         })
                     }

@@ -65,7 +65,7 @@ export default function App() {
         {
           data?.map((pokemon: any ) => {
             return (
-                <Pokemon info={pokemon}/>
+                <Pokemon key={pokemon.id} info={pokemon}/>
             )
           })
         }
@@ -76,5 +76,6 @@ export default function App() {
 
 // TODO pokemon page with more information about it
 // TODO search page with the pokemon search
+
 
 
