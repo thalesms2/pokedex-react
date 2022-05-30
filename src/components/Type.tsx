@@ -2,11 +2,13 @@ import styled from "styled-components"
 
 interface TypeProps {
     type: string
+    big?: boolean
 }
 
 interface Props {
     backgroundColor?: string
     textColor?: string
+    big?: boolean
 }
 
 const TypeCell = styled.span<Props>`

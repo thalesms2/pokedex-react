@@ -33,7 +33,6 @@ export default function App() {
 
   const searchPokemon = async (value: string) => {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
-    console.log(response.data)
     return response.data
   }
   
@@ -54,7 +53,7 @@ export default function App() {
     }
     return response
   }, {
-    staleTime: 1000 * 120, // 2 minutes
+    staleTime: 1000 * (60 * 20), // 20 minutes
   })
 
   return (
@@ -65,7 +64,9 @@ export default function App() {
         {
           data?.map((pokemon: any ) => {
             return (
+              <Link to={pokemon.name}>
                 <Pokemon key={pokemon.id} info={pokemon}/>
+              </Link>
             )
           })
         }
