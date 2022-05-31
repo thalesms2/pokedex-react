@@ -30,15 +30,9 @@ export default function App() {
 
   const [search, setSearch] = useState<string>('')
 
-
-<<<<<<< Updated upstream
-  const searchPokemon = async (value: string) => {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
-=======
   const searchPokemon = async (pokemonName: string) => {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
     console.log(response.data)
->>>>>>> Stashed changes
     return response.data
   }
   
