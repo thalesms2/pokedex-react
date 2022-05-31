@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useQuery } from "react-query"
-import { useParams } from "react-router-dom"
+import { Link,useParams } from "react-router-dom"
 
 import Type from "./components/Type"
 
@@ -62,6 +62,19 @@ const InfoWrapper = styled.div`
     background-color: #30A7D7;
     border-radius: 10px;
     padding: 1em;
+`
+
+const BackButton = styled.button`
+    background-color: #EE6B2F;
+    border-radius: 5px;
+    color: white;
+    padding: .8em 1.5em;
+    font-family: "Flexo",arial,sans-serif;
+    font-size: 1em;
+
+    &:hover {
+        background-color: #DA471B;
+    }
 `
 
 export default function PokemonPage() {
@@ -163,13 +176,16 @@ export default function PokemonPage() {
             <div>
                 Evoluções
                 <div>
-                    // Component Pokemon recebendo as evoluções 
-                    // TODO adicionar variavel cm circulo no component Pokemon
+
                 </div>
             </div>
-            <button>Explorar mais Pokémon</button>
+            <Link to="/">
+                <BackButton>Explorar mais Pokémon</BackButton>
+            </Link>
         </PokemonWrapper>
     )
 }
 
 // TODO Prev and next buttons on the top of the page
+// Component Pokemon recebendo as evoluções 
+// TODO adicionar variavel cm circulo no component Pokemon

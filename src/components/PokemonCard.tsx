@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Type from './Type'
 
-interface PokemonProps {
+interface PokemonCardProps {
     info: any
 }
 
@@ -10,7 +10,7 @@ const CardDiv = styled.div`
     flex-direction: column;
     background-color: #F2F2F2;
     color: white;
-    max-width: 200px;
+    max-width: 250px;
     margin: .5em;
 `
 
@@ -44,7 +44,7 @@ const IdParagraph = styled.p`
     margin: .5em 0;
 `
 
-export default function Pokemon(props: PokemonProps) {
+export default function PokemonCard(props: PokemonCardProps) {
     const imgUrl = props.info.sprites.other['official-artwork'].front_default
     let id: string = ''
     if(props.info.id < 10) {

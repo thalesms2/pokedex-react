@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import styled from 'styled-components'
 
-import Pokemon from './components/Pokemon'
+import PokemonCard from './components/PokemonCard'
 import Header from './components/Header'
 import Filter from './components/Filter'
 import { Link } from 'react-router-dom'
@@ -16,14 +16,14 @@ export type Pokemon = {
 }
 
 const Content = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const AppDiv = styled.div`
-  margin: 0 5em;
+  margin: 0 6em;
 `
 
 export default function App() {
@@ -65,7 +65,7 @@ export default function App() {
           data?.map((pokemon: any ) => {
             return (
               <Link to={pokemon.name}>
-                <Pokemon key={pokemon.id} info={pokemon}/>
+                <PokemonCard key={pokemon.id} info={pokemon}/>
               </Link>
             )
           })
