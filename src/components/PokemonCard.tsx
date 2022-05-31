@@ -48,14 +48,7 @@ const IdParagraph = styled.p`
 
 export default function PokemonCard(props: PokemonCardProps) {
     const imgUrl = props.info.sprites.other['official-artwork'].front_default
-    let id: string = ''
-    if(props.info.id < 10) {
-        id = `N°00${props.info.id}`
-    } else if(props.info.id < 100) {
-        id = `N°0${props.info.id}`
-    } else {
-        id = `N°${props.info.id}`
-    }
+    const id = `N°${String(props.info.id).padStart(3, '0')}`
 
     return (
         <CardDiv>

@@ -88,18 +88,7 @@ export default function PokemonPage() {
     })
 
     const imgUrl = data?.sprites.other['official-artwork'].front_default
-
-    let id: string = ''
-    if (data) {
-        if(data.id < 10) {
-            id = `N°00${data.id}`
-        } else if(data.id < 100) {
-            id = `N°0${data.id}`
-        } else {
-            id = `N°${data.id}`
-        }
-    }
-    
+    const id = `N°${String(data?.id).padStart(3, '0')}`
     return (
         <PokemonWrapper>
             <Title>{data?.name} {id}</Title>
@@ -193,4 +182,3 @@ export default function PokemonPage() {
 // TODO adicionar variavel cm circulo no component Pokemon
 // https://pokeapi.co/docs/v2#pokemon-species
 // https://pokeapi.co/api/v2/evolution-chain/1
-// 
