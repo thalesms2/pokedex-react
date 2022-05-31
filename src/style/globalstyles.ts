@@ -25,12 +25,39 @@ export const GlobalStyles = createGlobalStyle`
     }
     @font-face {
         font-family: 'Flexo';
-        src: url(${FlexoBold}) format('truetype');
-        src: url(${FlexoLight}) format('truetype');
-        src: url(${FlexoMedium}) format('truetype');
-        src: url(${FlexoRegular}) format('truetype');
-        src: url(${FlexoThin}) format('truetype');
+        src: local('Flexo'),
+             url(${FlexoRegular}) format('truetype');
+        font-weight: 400;
+        font-style: normal;
     }
-`
+    @font-face {
+        font-family: 'Flexo';
+        src: local('Flexo'),
+             url(${FlexoLight}) format('truetype');
+        font-weight: 200;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Flexo';
+        src: local('Flexo'),
+             url(${FlexoMedium}) format('truetype');
+        font-weight: 500;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Flexo';
+        src: local('Flexo'),
+             url(${FlexoBold}) format('truetype');
+        font-weight: 600;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Flexo';
+        src: local('Flexo'),
+             url(${FlexoThin}) format('truetype');
+        font-weight: 300;
+        font-style: normal;
+    }
+    `
 
 // Flexo-Medium | Flexo | Flexo Light | Flexo Bold

@@ -21,7 +21,8 @@ const TypeCell = styled.span<Props>`
     max-width: 110px;
     font-size: 12px;
     text-align: center;
-    font-family: "Flexo-Medium",arial,sans-serif;
+    font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
     text-transform: capitalize;
 `
 

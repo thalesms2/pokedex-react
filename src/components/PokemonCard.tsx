@@ -26,7 +26,8 @@ const TitleCard = styled.span`
     margin-bottom: 5px;
     line-height: 125%;
     text-transform: capitalize;
-    font-family: 'Flexo Light';
+    font-family: 'Flexo',arial,sans-serif;
+    font-weight: 600;
     color: #313131;
 `
 
@@ -37,6 +38,7 @@ const TypesDiv = styled.div`
 
 const IdParagraph = styled.p`
     font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
     padding-top: 2px;
     color: #919191;
     font-size: 80%;

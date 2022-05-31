@@ -32,7 +32,8 @@ const Title = styled.h2`
     margin-bottom: 5px;
     line-height: 125%;
     text-transform: capitalize;
-    font-family: 'Flexo Light';
+    font-family: 'Flexo',arial,sans-serif;
+    font-weight: 600;
     color: #313131;
 `
 
@@ -70,6 +71,7 @@ const BackButton = styled.button`
     color: white;
     padding: .8em 1.5em;
     font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
     font-size: 1em;
 
     &:hover {
@@ -189,3 +191,6 @@ export default function PokemonPage() {
 // TODO Prev and next buttons on the top of the page
 // Component Pokemon recebendo as evoluções 
 // TODO adicionar variavel cm circulo no component Pokemon
+// https://pokeapi.co/docs/v2#pokemon-species
+// https://pokeapi.co/api/v2/evolution-chain/1
+// 

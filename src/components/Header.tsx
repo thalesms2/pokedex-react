@@ -7,6 +7,7 @@ interface HeaderProps {
 const Title = styled.h1`
     color: #919191;
     font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
     line-height: 125%;
     font-size: 3em;
 `
