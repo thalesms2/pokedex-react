@@ -52,6 +52,12 @@ const StatsWrapper = styled.div`
     border-radius: 10px;
     padding: 1em;
     margin-top: 1em;
+    li {
+        margin-bottom: 4px;
+        height: 4px;
+        width: 55px;
+        background-color: white;
+    }
 `
 
 const RowWrapper = styled.div`
