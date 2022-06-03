@@ -3,11 +3,10 @@ import { Link, useParams } from "react-router-dom"
 
 import Type from "./components/Type"
 import Loading from "./components/Loading"
+import Stats from "./components/PokemonPage/Stats"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
-
-import { Pokemon } from "./types/pokemonTypes"
 
 const PokemonWrapper = styled.div`
     display: flex;
@@ -40,33 +39,6 @@ const ImgStatsWrapper = styled.div`
     }
 `
 
-const StatsWrapper = styled.div`
-    background-color: #A4A4A4;
-    border-radius: 10px;
-    padding: 1em;
-    margin-top: 1em;
-    height: 280px;
-    width: 430px;
-    li {
-        margin-bottom: 4px;
-        height: 8px;
-        width: 55px;
-        background-color: black;
-        position: relative;
-        z-index: 0;
-        vertical-align: baseline;
-    }
-    ul:nth-child(2) {
-        position: relative;
-    }
-    li:nth-child(1) {
-        background-color: #30a7d7;
-        border: none;
-        z-index: 1;
-        position: absolute;
-    }
-`
-
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -92,10 +64,10 @@ const BackButton = styled.button`
     }
 `
 
-export default function PokemonPage() {
+const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    const { data: pokemon, isLoading } = useQuery<Pokemon>('pokemon', () => searchPokemon(pokemonName as string))
+    const { data: pokemon, isLoading } = useQuery('pokemon', () => searchPokemon(pokemonName as string))
     const imgUrl = pokemon?.sprites.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.id).padStart(3, '0')}`
 
@@ -109,32 +81,7 @@ export default function PokemonPage() {
                     <RowWrapper>
                         <ImgStatsWrapper>
                             <img src={imgUrl} alt={`image of ${pokemon?.name}`} />
-                            <StatsWrapper>
-                                <h2>Stats</h2>
-                                <ul>
-                                    <li> 
-                                        <ul>
-                                            <li></li> 
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                        </ul>
-                                        <span>HP</span>
-                                    </li>
-                                </ul>
-                            </StatsWrapper>
+                            <Stats stats={pokemon?.stats}/>
                         </ImgStatsWrapper>
                         <div>
                             <span>
@@ -196,6 +143,8 @@ export default function PokemonPage() {
         pokemonRender()
     )
 }
+
+export default PokemonPage
 
 // TODO Prev and next buttons on the top of the page
 // Component Pokemon recebendo as evoluções 

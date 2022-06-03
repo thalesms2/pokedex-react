@@ -7,3 +7,10 @@ export type Pokemon = {
     height: number
     weight: number
 }
+
+export type Status = {
+    base_stat: number
+    stat: {
+        name: string
+    }
+}
