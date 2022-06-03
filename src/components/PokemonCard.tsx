@@ -10,8 +10,8 @@ const CardDiv = styled.div`
     flex-direction: column;
     background-color: #F2F2F2;
     color: white;
-    max-width: 250px;
-    margin: .5em;
+    width: 14vw;
+    margin-top: .5em;
 `
 
 const DescribeDiv = styled.div`

@@ -1,82 +1,63 @@
-import axios from 'axios'
-import { useQuery } from 'react-query'
 import styled from 'styled-components'
+import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom'
 
 import PokemonCard from './components/PokemonCard'
 import Header from './components/Header'
 import Filter from './components/Filter'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
 
-export type Pokemon = {
-  name: string;
-  id: number;
-  sprites: any;
-  types: any;
-}
+import useApi from './hooks/useApi'
+import useHandles from './hooks/useHandles'
+import Loading from './components/Loading'
 
-const Content = styled.div`
+const PokemonList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 `
 
 const AppDiv = styled.div`
-  margin: 0 6em;
+  margin: 0 20vw;
 `
 
 export default function App() {
+  const {
+    getAll
+  } = useApi()
+  const {
+    search,
+    handleSubmitSearch,
+    handleInputChange
+  } = useHandles()
 
-  const [search, setSearch] = useState<string>('')
+  const { data: pokemons, isLoading } = useQuery('pokemons', getAll);
 
-  const searchPokemon = async (pokemonName: string) => {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-    console.log(response.data)
-    return response.data
-  }
-  
-
-  const handleInputChange = (value: string) => {
-    setSearch(value)
-  }
-
-  const handleSubmitSearch = () => {
-    searchPokemon(search)
-  }
-
-  const { data } = useQuery<Pokemon[]>('pokemons', async () => {
-    let response: Array<Pokemon> = [] 
-    for(let i = 1; i < 152; i++) {
-      const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-      response.push(res.data)
+  function pokemonList() {
+    if (isLoading) {
+      return <Loading />
+    } else {
+      return (
+        <PokemonList>
+          {
+            pokemons?.map((pokemon: any ) => {
+              return (
+                <Link to={pokemon.name}>
+                  <PokemonCard key={pokemon.id} info={pokemon}/>
+                </Link>
+              )
+            })
+          }
+        </PokemonList>
+      )
     }
-    return response
-  }, {
-    staleTime: 1000 * (60 * 20), // 20 minutes
-  })
+  }
 
   return (
     <AppDiv>
       <Header title="Pokédex" />
-      <Filter handleInputChange={handleInputChange} value={search} handleSubmitSearch={handleSubmitSearch}/>
-      <Content>
-        {
-          data?.map((pokemon: any ) => {
-            return (
-              <Link to={pokemon.name}>
-                <PokemonCard key={pokemon.id} info={pokemon}/>
-              </Link>
-            )
-          })
-        }
-      </Content>
+      <Filter handleInputChange={handleInputChange} value={search} handleSubmitSearch={handleSubmitSearch} isLoading={isLoading}/> 
+      { pokemonList() }
     </AppDiv>
   )
 }
-
-// TODO pokemon page with more information about it
-// TODO search page with the pokemon search
-
-
-

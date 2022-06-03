@@ -1,20 +1,13 @@
-import axios from "axios"
 import { useQuery } from "react-query"
-import { Link,useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import Type from "./components/Type"
+import Loading from "./components/Loading"
 
 import styled from "styled-components"
+import useApi from "./hooks/useApi"
 
-type Pokemon = {
-    name: string
-    id: number
-    abilities: any
-    sprites: any
-    types: Array<Object>
-    height: number
-    weight: number
-}
+import { Pokemon } from "./types/pokemonTypes"
 
 const PokemonWrapper = styled.div`
     display: flex;
@@ -52,11 +45,25 @@ const StatsWrapper = styled.div`
     border-radius: 10px;
     padding: 1em;
     margin-top: 1em;
+    height: 280px;
+    width: 430px;
     li {
         margin-bottom: 4px;
-        height: 4px;
+        height: 8px;
         width: 55px;
-        background-color: white;
+        background-color: black;
+        position: relative;
+        z-index: 0;
+        vertical-align: baseline;
+    }
+    ul:nth-child(2) {
+        position: relative;
+    }
+    li:nth-child(1) {
+        background-color: #30a7d7;
+        border: none;
+        z-index: 1;
+        position: absolute;
     }
 `
 
@@ -87,99 +94,106 @@ const BackButton = styled.button`
 
 export default function PokemonPage() {
     const { pokemonName } = useParams()
-    const { data } = useQuery<Pokemon>('pokemon', async () => {
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-        console.log(res.data)
-        return res.data
-    })
+    const { searchPokemon } = useApi()
+    const { data: pokemon, isLoading } = useQuery<Pokemon>('pokemon', () => searchPokemon(pokemonName as string))
+    const imgUrl = pokemon?.sprites.other['official-artwork'].front_default
+    const id = `N°${String(pokemon?.id).padStart(3, '0')}`
 
-    const imgUrl = data?.sprites.other['official-artwork'].front_default
-    const id = `N°${String(data?.id).padStart(3, '0')}`
-    return (
-        <PokemonWrapper>
-            <Title>{data?.name} {id}</Title>
-            <RowWrapper>
-                <ImgStatsWrapper>
-                    <img src={imgUrl} alt={`image of ${data?.name}`} />
-                    <StatsWrapper>
-                        <ul>
-                            <li> 
+    function pokemonRender() {
+        if(isLoading) {
+            return <Loading />
+        } else {
+            return (
+                <PokemonWrapper>
+                    <Title>{pokemon?.name} {id}</Title>
+                    <RowWrapper>
+                        <ImgStatsWrapper>
+                            <img src={imgUrl} alt={`image of ${pokemon?.name}`} />
+                            <StatsWrapper>
+                                <h2>Stats</h2>
                                 <ul>
-                                    <li>esse vai por cima como marcador os de baixo são só os slots</li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
+                                    <li> 
+                                        <ul>
+                                            <li></li> 
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                        <span>HP</span>
+                                    </li>
                                 </ul>
-                                <span>HP</span>
-                            </li>
-                        </ul>
-                    </StatsWrapper>
-                </ImgStatsWrapper>
-                <div>
-                    <span>
-                        {
-                            // https://pokeapi.co/api/v2/pokemon-species/1/
-                            // flavor_text of the first object in the array 
-                            // contents the description, but has to clean the text
-                        }
-                    </span>
-                    <button>Change description to other version</button>
-                    <InfoWrapper>
-                        Information Height Category Weight Abilities Gender
-                        <RowWrapper>
-                            <div>
-                                <span>Height</span>
-                                <span>{data?.height}</span>
-                                <span>Weight</span>
-                                <span>{data?.weight}</span>
-                                <span>Gender</span>
-                                <span></span>
-                            </div>
-                            <div>
-                                <span>Category</span>
-                                <span>Seed</span>
-                                <span>Abilities</span>
-                                <span>Overgrow</span>
-                            </div>
-                        </RowWrapper>
-                    </InfoWrapper>
-                    <TypesDiv>
-                        <h3>Type</h3>
-                        {
-                            data?.types.map((type: any) => {
-                                return (
-                                    <Type key={type.type.name} type={type.type.name}/>
-                                )
-                            })
-                        }
-                    </TypesDiv>
-                    <TypesDiv>
-                        <h3>Weakness</h3>
-                    </TypesDiv>
-                </div>
-            </RowWrapper>
-            <div>
-                Evoluções
-                <div>
+                            </StatsWrapper>
+                        </ImgStatsWrapper>
+                        <div>
+                            <span>
+                                {
+                                    // https://pokeapi.co/api/v2/pokemon-species/1/
+                                    // flavor_text of the first object in the array 
+                                    // contents the description, but has to clean the text
+                                }
+                            </span>
+                            <button>Change description to other version</button>
+                            <InfoWrapper>
+                                Information Height Category Weight Abilities Gender
+                                <RowWrapper>
+                                    <div>
+                                        <span>Height</span>
+                                        <span>{pokemon?.height}</span>
+                                        <span>Weight</span>
+                                        <span>{pokemon?.weight}</span>
+                                        <span>Gender</span>
+                                        <span></span>
+                                    </div>
+                                    <div>
+                                        <span>Category</span>
+                                        <span>Seed</span>
+                                        <span>Abilities</span>
+                                        <span>Overgrow</span>
+                                    </div>
+                                </RowWrapper>
+                            </InfoWrapper>
+                            <TypesDiv>
+                                <h3>Type</h3>
+                                {
+                                    pokemon?.types.map((type: any) => {
+                                        return (
+                                            <Type key={type.type.name} type={type.type.name}/>
+                                        )
+                                    })
+                                }
+                            </TypesDiv>
+                            <TypesDiv>
+                                <h3>Weakness</h3>
+                            </TypesDiv>
+                        </div>
+                    </RowWrapper>
+                    <div>
+                        Evoluções
+                        <div>
 
-                </div>
-            </div>
-            <Link to="/">
-                <BackButton>Explorar mais Pokémon</BackButton>
-            </Link>
-        </PokemonWrapper>
+                        </div>
+                    </div>
+                    <Link to="/">
+                        <BackButton>Explorar mais Pokémon</BackButton>
+                    </Link>
+                </PokemonWrapper>
+            )
+        }
+    }
+    return (
+        pokemonRender()
     )
 }
 
@@ -188,3 +202,5 @@ export default function PokemonPage() {
 // TODO adicionar variavel cm circulo no component Pokemon
 // https://pokeapi.co/docs/v2#pokemon-species
 // https://pokeapi.co/api/v2/evolution-chain/1
+
+// esse vai por cima como marcador os de baixo são só os slots
