@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App";
 import PokemonPage from "./PokemonPage";
-import NotFound from "./NotFound";
 
 import { GlobalStyles } from "./style/globalstyles";
 
@@ -19,7 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<App />}/>
           <Route path=":pokemonName" element={<PokemonPage />}/>
-          <Route path="*" element={<NotFound />}/>
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>

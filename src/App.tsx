@@ -27,7 +27,6 @@ export default function App() {
   } = useApi()
   const {
     search,
-    handleSubmitSearch,
     handleInputChange
   } = useHandles()
 
@@ -56,7 +55,7 @@ export default function App() {
   return (
     <AppDiv>
       <Header title="Pokédex" />
-      <Filter handleInputChange={handleInputChange} value={search} handleSubmitSearch={handleSubmitSearch} isLoading={isLoading}/> 
+      <Filter handleInputChange={handleInputChange} value={search}/> 
       { pokemonList() }
     </AppDiv>
   )

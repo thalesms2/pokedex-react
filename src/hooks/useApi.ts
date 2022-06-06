@@ -8,6 +8,14 @@ export default function useApi() {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         return await response.data
     }
+    async function getSpecies(pokemonName: string) {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
+        return await response.data
+    }
+    async function getEvolution(pokemonId: number) {
+        const response = await axios.get(`https://pokeapi.co/api/v2/evolution-chain/${pokemonId}`)
+        return await response.data
+    }
     async function getAll() {
         let response: Array<Pokemon> = [] 
         for(let i = 1; i < 152; i++) {
@@ -20,6 +28,7 @@ export default function useApi() {
     return {
         getAll,
         searchPokemon,
+        getSpecies,
+        getEvolution
     }
 }
-

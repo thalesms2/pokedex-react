@@ -39,6 +39,10 @@ const ImgStatsWrapper = styled.div`
     }
 `
 
+const Description = styled.span`
+
+`
+
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -66,11 +70,38 @@ const BackButton = styled.button`
 
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
-    const { searchPokemon } = useApi()
+    const { 
+        searchPokemon,
+        getSpecies,
+        getEvolution
+    } = useApi()
+    function formatDescription(description: string) {
+        description = description.toLowerCase()
+        description = description.replace(/(\n)/gm, " ")
+        description = description.replace(/(\f)/gm, "")
+        const index = description.search(/([.])/gm)
+        description = description.charAt(0).toUpperCase() + description.slice(1, index) + '. ' + description.charAt(index+1).toUpperCase() + description.slice(index+2)
+        return description
+        // tirar espaço para funcionar por completo
+    }
     const { data: pokemon, isLoading } = useQuery('pokemon', () => searchPokemon(pokemonName as string))
+    const { data: species } = useQuery('species', () => getSpecies(pokemonName as string))
+    const { data: evolution } = useQuery('evolution', () => getEvolution(pokemon?.id))
     const imgUrl = pokemon?.sprites.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.id).padStart(3, '0')}`
-
+    const description: any = []
+    species?.flavor_text_entries.forEach((text: any) => {
+        if(text.language.name === 'en') {
+            description.push({
+                text: text.flavor_text,
+                language: text.language.name,
+                version: text.version.name
+            })
+        }
+    })
+    if(description[0]) {
+        description[0].text = formatDescription(description[0].text)
+    }
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -84,13 +115,9 @@ const PokemonPage: React.FC = () => {
                             <Stats stats={pokemon?.stats}/>
                         </ImgStatsWrapper>
                         <div>
-                            <span>
-                                {
-                                    // https://pokeapi.co/api/v2/pokemon-species/1/
-                                    // flavor_text of the first object in the array 
-                                    // contents the description, but has to clean the text
-                                }
-                            </span>
+                            <Description>
+                                { description[0]?.text }
+                            </Description>
                             <button>Change description to other version</button>
                             <InfoWrapper>
                                 Information Height Category Weight Abilities Gender
@@ -145,11 +172,3 @@ const PokemonPage: React.FC = () => {
 }
 
 export default PokemonPage
-
-// TODO Prev and next buttons on the top of the page
-// Component Pokemon recebendo as evoluções 
-// TODO adicionar variavel cm circulo no component Pokemon
-// https://pokeapi.co/docs/v2#pokemon-species
-// https://pokeapi.co/api/v2/evolution-chain/1
-
-// esse vai por cima como marcador os de baixo são só os slots
