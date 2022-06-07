@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import Type from "./components/Type"
 import Loading from "./components/Loading"
 import Stats from "./components/PokemonPage/Stats"
+import Description from "./components/PokemonPage/Description"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
@@ -39,10 +40,6 @@ const ImgStatsWrapper = styled.div`
     }
 `
 
-const Description = styled.span`
-
-`
-
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -72,36 +69,12 @@ const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { 
         searchPokemon,
-        getSpecies,
-        getEvolution
     } = useApi()
-    function formatDescription(description: string) {
-        description = description.toLowerCase()
-        description = description.replace(/(\n)/gm, " ")
-        description = description.replace(/(\f)/gm, "")
-        const index = description.search(/([.])/gm)
-        description = description.charAt(0).toUpperCase() + description.slice(1, index) + '. ' + description.charAt(index+1).toUpperCase() + description.slice(index+2)
-        return description
-        // tirar espaço para funcionar por completo
-    }
     const { data: pokemon, isLoading } = useQuery('pokemon', () => searchPokemon(pokemonName as string))
-    const { data: species } = useQuery('species', () => getSpecies(pokemonName as string))
-    const { data: evolution } = useQuery('evolution', () => getEvolution(pokemon?.id))
+    // const { data: evolution} = useQuery('evolution', () => getEvolution(pokemon?.id))
     const imgUrl = pokemon?.sprites.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.id).padStart(3, '0')}`
     const description: any = []
-    species?.flavor_text_entries.forEach((text: any) => {
-        if(text.language.name === 'en') {
-            description.push({
-                text: text.flavor_text,
-                language: text.language.name,
-                version: text.version.name
-            })
-        }
-    })
-    if(description[0]) {
-        description[0].text = formatDescription(description[0].text)
-    }
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -115,10 +88,7 @@ const PokemonPage: React.FC = () => {
                             <Stats stats={pokemon?.stats}/>
                         </ImgStatsWrapper>
                         <div>
-                            <Description>
-                                { description[0]?.text }
-                            </Description>
-                            <button>Change description to other version</button>
+                            <Description pokemonName={pokemonName as string}/>
                             <InfoWrapper>
                                 Information Height Category Weight Abilities Gender
                                 <RowWrapper>
