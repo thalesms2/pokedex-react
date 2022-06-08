@@ -4,9 +4,49 @@ import { Pokemon } from '../types/pokemonTypes'
 
 
 export default function useApi() {
+    function formatDescription(description: string) {
+        description = description.toLowerCase()
+        description = description.replace(/(\n)/gm, " ")
+        description = description.replace(/(\f)/gm, "")
+        const index = description.search(/([.])/gm)
+        if(description[index+1] === ' ') {
+            description = description.charAt(0).toUpperCase() + description.slice(1, index) + '. ' + description.charAt(index+2).toUpperCase() + description.slice(index+3)
+        } else {
+            description = description.charAt(0).toUpperCase() + description.slice(1, index) + '. ' + description.charAt(index+1).toUpperCase() + description.slice(index+2)
+        }
+        return description
+    }
     async function searchPokemon(pokemonName: string) {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-        return await response.data
+        const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        const pokemonSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
+        const pokemonEvo = await axios.get(pokemonSpecies.data.evolution_chain.url)
+        const descriptions: any = []
+        pokemonSpecies?.data.flavor_text_entries.forEach((text: any) => {
+            if(text.language.name === 'en') {
+                const response = {
+                    text: formatDescription(text.flavor_text),
+                    language: text.language.name,
+                    version: text.version.name
+                }
+                descriptions.push(response)
+            }
+        })
+        const response = {
+            info:  {
+                id: pokemonInfo.data.id,
+                name: pokemonInfo.data.name,
+                img: pokemonInfo.data.sprites,
+                types: pokemonInfo.data.types,
+                height: pokemonInfo.data.height,
+                weight: pokemonInfo.data.weight,
+                stats: pokemonInfo.data.stats,
+                abilities: pokemonInfo.data.abilities,
+                gender: pokemonSpecies.data.gender_rate
+            },
+            description: descriptions,
+            evolution: pokemonEvo.data.chain.evolves_to
+        }
+        return await response
     }
     async function getAll() {
         let response: Array<Pokemon> = [] 
@@ -19,7 +59,6 @@ export default function useApi() {
 
     return {
         getAll,
-        searchPokemon,
+        searchPokemon
     }
 }
-

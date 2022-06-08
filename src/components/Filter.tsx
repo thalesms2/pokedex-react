@@ -5,8 +5,6 @@ import { FaSearch } from 'react-icons/fa'
 interface FilterProps {
     handleInputChange: (value: string) => void
     value: string
-    handleSubmitSearch: () => void
-    isLoading: boolean
 }
 
 const Wrapper = styled.div`
@@ -50,23 +48,14 @@ const SearchButton = styled.button`
 `
 
 export default function Filter(props: FilterProps) {
-    function filterRender() {
-        if(props.isLoading) {
-            return(<></>)
-        } else {
-            return(
-                <form>
-                    <SearchLabel htmlFor="searchPokemonByName">Nome ou número</SearchLabel>
-                    <Wrapper>
-                        <SearchInput type="text" id="searchPokemonByName" value={props.value} onChange={e => props.handleInputChange(e.target.value)}/>
-                        <Link to={`/${props.value}`}><SearchButton onClick={props.handleSubmitSearch}><FaSearch color='white' fontSize={25} /></SearchButton></Link>
-                    </Wrapper>
-                </form>
-            )
-        }
-    }
 
     return(
-        filterRender()
+        <form>
+            <SearchLabel htmlFor="searchPokemonByName">Nome ou número</SearchLabel>
+            <Wrapper>
+                <SearchInput type="text" id="searchPokemonByName" value={props.value} onChange={e => props.handleInputChange(e.target.value)}/>
+                <Link to={`/${props.value}`}><SearchButton><FaSearch color='white' fontSize={25} /></SearchButton></Link>
+            </Wrapper>
+        </form>
     )
 }

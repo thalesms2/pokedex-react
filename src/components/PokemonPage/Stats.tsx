@@ -37,7 +37,7 @@ const Stats: React.FC<StatsProps> = (props) => {
     return (
         <StatsWrapper>
             <h2>Stats</h2>
-            <ul>
+            {/* <ul>
                 <li> 
                     <ul>
                         <li></li> 
@@ -59,7 +59,7 @@ const Stats: React.FC<StatsProps> = (props) => {
                     </ul>
                     <span>HP</span>
                 </li>
-            </ul>
+            </ul> */}
         </StatsWrapper>
     )
 }
