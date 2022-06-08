@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Routes>
-          <Route path="/" element={<App />}/>
-          <Route path=":pokemonName" element={<PokemonPage />}/>
+          <Route path="/" key='index' element={<App />}/>
+          <Route path=":pokemonName" key=':pokemonName' element={<PokemonPage />}/>
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>

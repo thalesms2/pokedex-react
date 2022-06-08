@@ -67,36 +67,32 @@ const BackButton = styled.button`
 
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
-    const { 
-        searchPokemon,
-    } = useApi()
+    const { searchPokemon } = useApi()
     const { data: pokemon, isLoading } = useQuery('pokemon', () => searchPokemon(pokemonName as string))
-    // const { data: evolution} = useQuery('evolution', () => getEvolution(pokemon?.id))
-    const imgUrl = pokemon?.sprites.other['official-artwork'].front_default
-    const id = `N°${String(pokemon?.id).padStart(3, '0')}`
-    const description: any = []
+    const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
+    const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
         } else {
             return (
                 <PokemonWrapper>
-                    <Title>{pokemon?.name} {id}</Title>
+                    <Title>{pokemon?.info.name} {id}</Title>
                     <RowWrapper>
                         <ImgStatsWrapper>
-                            <img src={imgUrl} alt={`image of ${pokemon?.name}`} />
-                            <Stats stats={pokemon?.stats}/>
+                            <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
+                            <Stats stats={pokemon?.info.stats}/>
                         </ImgStatsWrapper>
                         <div>
-                            <Description pokemonName={pokemonName as string}/>
+                            <Description info={pokemon?.description}/>
                             <InfoWrapper>
                                 Information Height Category Weight Abilities Gender
                                 <RowWrapper>
                                     <div>
                                         <span>Height</span>
-                                        <span>{pokemon?.height}</span>
+                                        <span></span>
                                         <span>Weight</span>
-                                        <span>{pokemon?.weight}</span>
+                                        <span></span>
                                         <span>Gender</span>
                                         <span></span>
                                     </div>
@@ -111,7 +107,7 @@ const PokemonPage: React.FC = () => {
                             <TypesDiv>
                                 <h3>Type</h3>
                                 {
-                                    pokemon?.types.map((type: any) => {
+                                    pokemon?.info.types.map((type: any) => {
                                         return (
                                             <Type key={type.type.name} type={type.type.name}/>
                                         )
@@ -136,6 +132,7 @@ const PokemonPage: React.FC = () => {
             )
         }
     }
+    
     return (
         pokemonRender()
     )

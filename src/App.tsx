@@ -22,9 +22,7 @@ const AppDiv = styled.div`
 `
 
 export default function App() {
-  const {
-    getAll
-  } = useApi()
+  const { getAll } = useApi()
   const {
     search,
     handleInputChange
@@ -39,10 +37,10 @@ export default function App() {
       return (
         <PokemonList>
           {
-            pokemons?.map((pokemon: any ) => {
+            pokemons?.map((pokemon: any) => {
               return (
-                <Link to={pokemon.name}>
-                  <PokemonCard key={pokemon.id} info={pokemon}/>
+                <Link to={pokemon.name} key={pokemon.id.toString()}>
+                  <PokemonCard info={pokemon}/>
                 </Link>
               )
             })
