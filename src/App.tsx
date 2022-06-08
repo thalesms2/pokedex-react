@@ -9,6 +9,7 @@ import Filter from './components/Filter'
 import useApi from './hooks/useApi'
 import useHandles from './hooks/useHandles'
 import Loading from './components/Loading'
+import axios from 'axios'
 
 const PokemonList = styled.div`
   display: flex;

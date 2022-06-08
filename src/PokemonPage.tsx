@@ -8,6 +8,7 @@ import Description from "./components/PokemonPage/Description"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
+import Info from "./components/PokemonPage/Info"
 
 const PokemonWrapper = styled.div`
     display: flex;
@@ -45,12 +46,6 @@ const RowWrapper = styled.div`
     flex-direction: row;
 `
 
-const InfoWrapper = styled.div`
-    background-color: #30A7D7;
-    border-radius: 10px;
-    padding: 1em;
-`
-
 const BackButton = styled.button`
     background-color: #EE6B2F;
     border-radius: 5px;
@@ -85,25 +80,11 @@ const PokemonPage: React.FC = () => {
                         </ImgStatsWrapper>
                         <div>
                             <Description info={pokemon?.description}/>
-                            <InfoWrapper>
-                                Information Height Category Weight Abilities Gender
-                                <RowWrapper>
-                                    <div>
-                                        <span>Height</span>
-                                        <span></span>
-                                        <span>Weight</span>
-                                        <span></span>
-                                        <span>Gender</span>
-                                        <span></span>
-                                    </div>
-                                    <div>
-                                        <span>Category</span>
-                                        <span>Seed</span>
-                                        <span>Abilities</span>
-                                        <span>Overgrow</span>
-                                    </div>
-                                </RowWrapper>
-                            </InfoWrapper>
+                            <Info 
+                                height={pokemon?.info.height} 
+                                weight={pokemon?.info.weight} 
+                                abilities={pokemon?.info.abilities} 
+                                gender={pokemon?.info.gender} />
                             <TypesDiv>
                                 <h3>Type</h3>
                                 {
@@ -132,7 +113,7 @@ const PokemonPage: React.FC = () => {
             )
         }
     }
-    
+
     return (
         pokemonRender()
     )

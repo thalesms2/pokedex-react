@@ -19,7 +19,7 @@ export default function useApi() {
     async function searchPokemon(pokemonName: string) {
         const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         const pokemonSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
-        const pokemonEvo = await axios.get(`https://pokeapi.co/api/v2/evolution-chain/${pokemonInfo.data.id}`)
+        const pokemonEvo = await axios.get(pokemonSpecies.data.evolution_chain.url)
         const descriptions: any = []
         pokemonSpecies?.data.flavor_text_entries.forEach((text: any) => {
             if(text.language.name === 'en') {
@@ -39,7 +39,9 @@ export default function useApi() {
                 types: pokemonInfo.data.types,
                 height: pokemonInfo.data.height,
                 weight: pokemonInfo.data.weight,
-                stats: pokemonInfo.data.stats
+                stats: pokemonInfo.data.stats,
+                abilities: pokemonInfo.data.abilities,
+                gender: pokemonSpecies.data.gender_rate
             },
             description: descriptions,
             evolution: pokemonEvo.data.chain.evolves_to
