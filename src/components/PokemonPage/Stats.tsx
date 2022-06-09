@@ -13,6 +13,11 @@ const StatsWrapper = styled.div`
     margin-top: 1em;
     height: 280px;
     width: 430px;
+    h3 {
+        font-family: "Flexo",arial,sans-serif;
+        font-weight: 400;
+        font-size: 1.4em;
+    }
     li {
         margin-bottom: 4px;
         height: 8px;
@@ -36,8 +41,13 @@ const StatsWrapper = styled.div`
 const Stats: React.FC<StatsProps> = (props) => {
     return (
         <StatsWrapper>
+<<<<<<< Updated upstream
             <h2>Stats</h2>
             <ul>
+=======
+            <h3>Stats</h3>
+            {/* <ul>
+>>>>>>> Stashed changes
                 <li> 
                     <ul>
                         <li></li> 

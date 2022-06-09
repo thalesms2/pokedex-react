@@ -4,6 +4,11 @@ import { Link, useParams } from "react-router-dom"
 import Type from "./components/Type"
 import Loading from "./components/Loading"
 import Stats from "./components/PokemonPage/Stats"
+<<<<<<< Updated upstream
+=======
+import Description from "./components/PokemonPage/Description"
+import Info from "./components/PokemonPage/Info"
+>>>>>>> Stashed changes
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
@@ -16,7 +21,7 @@ const PokemonWrapper = styled.div`
 
 const TypesDiv = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `
 
 const Title = styled.h2`
@@ -42,6 +47,11 @@ const ImgStatsWrapper = styled.div`
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
+`
+const SubTitle = styled.h3`
+    font-family: "Flexo",arial,sans-serif;
+    font-weight: 400;
+    font-size: 1.4em;
 `
 
 const InfoWrapper = styled.div`
@@ -112,7 +122,7 @@ const PokemonPage: React.FC = () => {
                                 </RowWrapper>
                             </InfoWrapper>
                             <TypesDiv>
-                                <h3>Type</h3>
+                                <SubTitle>Type</SubTitle>
                                 {
                                     pokemon?.types.map((type: any) => {
                                         return (
@@ -122,7 +132,10 @@ const PokemonPage: React.FC = () => {
                                 }
                             </TypesDiv>
                             <TypesDiv>
-                                <h3>Weakness</h3>
+                                <SubTitle>Weakness</SubTitle>
+                                {
+
+                                }
                             </TypesDiv>
                         </div>
                     </RowWrapper>
