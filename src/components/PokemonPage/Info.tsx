@@ -101,7 +101,7 @@ const Info: React.FC<InfoProps> = ({height, weight, abilities, gender}) => {
                     <Label>Abilities</Label>
                     { abilities.map((index: any) => {
                         if(!index.is_hidden)
-                            return <Value>{index.ability.name}</Value>
+                            return <Value key={index.ability.name}>{index.ability.name}</Value>
                     }) }
                 </Cell>
         </Wrapper>

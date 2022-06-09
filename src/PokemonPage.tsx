@@ -11,6 +11,7 @@ import Evolutions from "./components/PokemonPage/Evolutions"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
+import Weaknesses from "./components/PokemonPage/Weaknesses"
 
 const PokemonWrapper = styled.div`
     display: flex;
@@ -70,7 +71,6 @@ const PokemonPage: React.FC = () => {
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
     const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
-
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -93,16 +93,12 @@ const PokemonPage: React.FC = () => {
                             <TypesDiv>
                                 <SubTitle>Type</SubTitle>
                                 {pokemon?.info.types.map((type: any) => {
-                                    return (
-                                        <Type key={type.type.name} type={type.type.name} big/>
-                                    )
+                                    return <Type key={type.type.name} type={type.type.name} big/>
                                 })}
                             </TypesDiv>
                             <TypesDiv>
                                 <SubTitle>Weakness</SubTitle>
-                                {
-
-                                }
+                                <Weaknesses info={pokemon?.info.damageRelations}/>
                             </TypesDiv>
                         </ColumnWrapper>
                     </RowWrapper>

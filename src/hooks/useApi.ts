@@ -17,7 +17,6 @@ export default function useApi() {
         return description
     }
     function formatVersion(version: string) {
-        // let response = version.charAt(0).toUpperCase() + version.slice(1, version.length)
         let response = version.replaceAll('-', ' ')
         return response
     }
@@ -25,6 +24,14 @@ export default function useApi() {
         const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         const pokemonSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
         const pokemonEvo = await axios.get(pokemonSpecies.data.evolution_chain.url)
+
+        const pokemonDamageRelations: any = []
+        pokemonInfo?.data.types.map(async (type: any) => {
+            const response = await axios.get(type.type.url)
+            pokemonDamageRelations.push(response.data.damage_relations)
+        })
+
+        // Descrições
         const descriptions: any = []
         let index = 0
         pokemonSpecies?.data.flavor_text_entries.forEach((text: any) => {
@@ -39,6 +46,7 @@ export default function useApi() {
                 index++
             }
         })
+
         const response = {
             info:  {
                 id: pokemonInfo.data.id,
@@ -49,7 +57,8 @@ export default function useApi() {
                 weight: pokemonInfo.data.weight,
                 stats: pokemonInfo.data.stats,
                 abilities: pokemonInfo.data.abilities,
-                gender: pokemonSpecies.data.gender_rate
+                gender: pokemonSpecies.data.gender_rate,
+                damageRelations: pokemonDamageRelations
             },
             description: descriptions,
             evolution: pokemonEvo.data.chain.evolves_to
@@ -64,7 +73,6 @@ export default function useApi() {
         }
         return await response
     }
-
     return {
         getAll,
         searchPokemon

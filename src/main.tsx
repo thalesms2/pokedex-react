@@ -11,9 +11,8 @@ import { GlobalStyles } from "./style/globalstyles";
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <BrowserRouter>
     <GlobalStyles />
-    <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/" element={<App />}/>
@@ -21,5 +20,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>
-  </React.StrictMode>
 );
