@@ -67,7 +67,7 @@ const BackButton = styled.button`
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    const { data: pokemon, isLoading } = useQuery(`${pokemonName}`, () => searchPokemon(pokemonName as string))
+    const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
     const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
 
