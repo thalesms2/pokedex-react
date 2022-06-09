@@ -11,30 +11,34 @@ interface InfoProps {
 
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     flex-wrap: wrap;
     background-color: #30A7D7;
     border-radius: 10px;
     padding: 1em;
+    max-height: 250px;
     font-family: 'Flexo',arial,sans-serif;
 `
-const RowWrapper = styled.div`
+const Cell = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 1.5em;
+    width: 50%;
 `
 const Label = styled.h2`
     color: white;
     font-weight: 400;
 `
 const Value = styled.span`
-    font-weight: 600;
+    font-weight: 500;
     color: #323232;
+    font-size: 1.5em;
     text-transform: capitalize;
 `
 const IconValue = styled.span`
     font-size: 2em;
+    line-height: 1em;
     color: #323232;
 `
 
@@ -79,21 +83,27 @@ const Info: React.FC<InfoProps> = ({height, weight, abilities, gender}) => {
     const weightFixed = fixNumber(weight)
     return (
         <Wrapper>
-            <RowWrapper>
-                <Label>Height</Label>
-                <Value>{ `${heightFixed} m` }</Value>
-                <Label>Weight</Label>
-                <Value>{ `${weightFixed} kg` }</Value>
-            </RowWrapper>
-            <RowWrapper>
-                <Label>Gender</Label>
-                <Value>{ renderGender() }</Value>
-                <Label>Abilities</Label>
-                { abilities.map((index: any) => {
-                    if(!index.is_hidden)
-                        return <Value>{index.ability.name}</Value>
-                }) }
-            </RowWrapper>
+            
+                <Cell>
+                    <Label>Height</Label>
+                    <Value>{ `${heightFixed} m` }</Value>
+                </Cell>
+                <Cell>
+                    <Label>Weight</Label>
+                    <Value>{ `${weightFixed} kg` }</Value>
+                </Cell>
+            
+                <Cell>
+                    <Label>Gender</Label>
+                    { renderGender() }
+                </Cell>
+                <Cell>
+                    <Label>Abilities</Label>
+                    { abilities.map((index: any) => {
+                        if(!index.is_hidden)
+                            return <Value>{index.ability.name}</Value>
+                    }) }
+                </Cell>
         </Wrapper>
     )
 }

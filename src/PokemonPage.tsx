@@ -9,35 +9,33 @@ import Info from "./components/PokemonPage/Info"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
+import Header from "./components/Header"
+import Evolutions from "./components/PokemonPage/Evolutions"
 
 const PokemonWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 20vw;
 `
 
 const TypesDiv = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 1em;
 `
 
-const Title = styled.h2`
-    font-size: 145%;
-    margin-bottom: 5px;
-    line-height: 125%;
-    text-transform: capitalize;
-    font-family: 'Flexo',arial,sans-serif;
-    font-weight: 600;
-    color: #313131;
-`
-
-const ImgStatsWrapper = styled.div`
+const ColumnWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    max-width: 430px;
     img {
         background-color: #F2F2F2;
-        max-width: 430px;
         padding-bottom: 30px;
+    }
+    &:nth-child(1) {
+        margin-right: 1em;
     }
 `
 
@@ -49,12 +47,7 @@ const SubTitle = styled.h3`
     font-family: "Flexo",arial,sans-serif;
     font-weight: 400;
     font-size: 1.4em;
-`
-
-const InfoWrapper = styled.div`
-    background-color: #30A7D7;
-    border-radius: 10px;
-    padding: 1em;
+    width: 100%;
 `
 
 const BackButton = styled.button`
@@ -65,7 +58,7 @@ const BackButton = styled.button`
     font-family: "Flexo",arial,sans-serif;
     font-weight: 600;
     font-size: 1em;
-
+    margin: 1em;
     &:hover {
         background-color: #DA471B;
     }
@@ -74,7 +67,7 @@ const BackButton = styled.button`
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    const { data: pokemon, isLoading } = useQuery('pokemon', () => searchPokemon(pokemonName as string))
+    const { data: pokemon, isLoading } = useQuery(`${pokemonName}`, () => searchPokemon(pokemonName as string))
     const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
 
@@ -84,13 +77,13 @@ const PokemonPage: React.FC = () => {
         } else {
             return (
                 <PokemonWrapper>
-                    <Title>{pokemon?.info.name} {id}</Title>
+                    <Header pokemonPage title={`${pokemon?.info.name} ${id}`}/>
                     <RowWrapper>
-                        <ImgStatsWrapper>
+                        <ColumnWrapper>
                             <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
-                            <Stats stats={pokemon?.info.stats}/>
-                        </ImgStatsWrapper>
-                        <div>
+                            <Stats stats={pokemon?.info.stats}><SubTitle>Stats</SubTitle></Stats>
+                        </ColumnWrapper>
+                        <ColumnWrapper>
                             <Description info={pokemon?.description} />
                             <Info 
                                 height={pokemon?.info.height} 
@@ -101,7 +94,7 @@ const PokemonPage: React.FC = () => {
                                 <SubTitle>Type</SubTitle>
                                 {pokemon?.info.types.map((type: any) => {
                                     return (
-                                        <Type key={type.type.name} type={type.type.name}/>
+                                        <Type key={type.type.name} type={type.type.name} big/>
                                     )
                                 })}
                             </TypesDiv>
@@ -111,14 +104,11 @@ const PokemonPage: React.FC = () => {
 
                                 }
                             </TypesDiv>
-                        </div>
+                        </ColumnWrapper>
                     </RowWrapper>
-                    <div>
-                        Evoluções
-                        <div>
-
-                        </div>
-                    </div>
+                    <Evolutions>
+                        <SubTitle>Evolutions</SubTitle>
+                    </Evolutions>
                     <Link to="/">
                         <BackButton>Explorar mais Pokémon</BackButton>
                     </Link>

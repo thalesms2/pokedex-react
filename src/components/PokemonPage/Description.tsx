@@ -13,6 +13,7 @@ type DescriptionType = {
 const DescriptionWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    margin: 1em 0;
 `
 const DescriptionText = styled.span`
     font-family: "Flexo",arial,sans-serif;

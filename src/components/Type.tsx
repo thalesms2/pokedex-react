@@ -5,24 +5,24 @@ interface TypeProps {
     big?: boolean
 }
 
-interface Props {
+interface TypeCellProps {
     backgroundColor?: string
     textColor?: string
     big?: boolean
 }
 
-const TypeCell = styled.span<Props>`
+const TypeCell = styled.span<TypeCellProps>`
     background: ${props => props.backgroundColor || 'white' };
     color: ${props => props.textColor || 'black'};
-    margin: 0 1.5625% 0 0;
-    width: 38.4375%;
-    line-height: 18px;
+    margin: ${props => props.big ? '1% 0 0 1%' : '0 1.5625% 0 0'};
+    line-height: ${props => props.big ? '32px' : '18px'};
     border-radius: 3px;
-    max-width: 110px;
-    font-size: 12px;
+    width: 38.4375%;
+    max-width: ${props => props.big ? '140px' : '110px'};
+    font-size: ${props => props.big ? '' : '12px'};
     text-align: center;
     font-family: "Flexo",arial,sans-serif;
-    font-weight: 600;
+    font-weight: ${props => props.big ? '' : '600'};
     text-transform: capitalize;
 `
 
@@ -70,7 +70,7 @@ export default function Type(props: TypeProps) {
     }[props.type]
 
     return(
-        <TypeCell backgroundColor={backgroundColor} textColor={textColor}>
+        <TypeCell big={props.big} backgroundColor={backgroundColor} textColor={textColor}>
             {props.type}
         </TypeCell>
     )
