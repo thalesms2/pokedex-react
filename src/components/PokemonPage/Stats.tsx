@@ -41,13 +41,8 @@ const StatsWrapper = styled.div`
 const Stats: React.FC<StatsProps> = (props) => {
     return (
         <StatsWrapper>
-<<<<<<< Updated upstream
-            <h2>Stats</h2>
-            <ul>
-=======
             <h3>Stats</h3>
             {/* <ul>
->>>>>>> Stashed changes
                 <li> 
                     <ul>
                         <li></li> 
@@ -69,7 +64,7 @@ const Stats: React.FC<StatsProps> = (props) => {
                     </ul>
                     <span>HP</span>
                 </li>
-            </ul>
+    </ul> */}
         </StatsWrapper>
     )
 }

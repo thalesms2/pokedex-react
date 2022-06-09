@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom'
 import PokemonCard from './components/PokemonCard'
 import Header from './components/Header'
 import Filter from './components/Filter'
+import Loading from './components/Loading'
 
 import useApi from './hooks/useApi'
 import useHandles from './hooks/useHandles'
-import Loading from './components/Loading'
-import axios from 'axios'
 
 const PokemonList = styled.div`
   display: flex;
@@ -37,15 +36,13 @@ export default function App() {
     } else {
       return (
         <PokemonList>
-          {
-            pokemons?.map((pokemon: any) => {
+          {pokemons?.map((pokemon: any) => {
               return (
                 <Link to={pokemon.name} key={pokemon.id.toString()}>
                   <PokemonCard info={pokemon}/>
                 </Link>
               )
-            })
-          }
+            })}
         </PokemonList>
       )
     }
