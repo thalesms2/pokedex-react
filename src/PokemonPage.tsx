@@ -3,14 +3,14 @@ import { Link, useParams } from "react-router-dom"
 
 import Type from "./components/Type"
 import Loading from "./components/Loading"
+import Header from "./components/Header"
 import Stats from "./components/PokemonPage/Stats"
 import Description from "./components/PokemonPage/Description"
 import Info from "./components/PokemonPage/Info"
+import Evolutions from "./components/PokemonPage/Evolutions"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
-import Header from "./components/Header"
-import Evolutions from "./components/PokemonPage/Evolutions"
 
 const PokemonWrapper = styled.div`
     display: flex;
