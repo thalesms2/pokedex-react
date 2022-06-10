@@ -69,8 +69,10 @@ const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
+
     const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
+
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -81,7 +83,9 @@ const PokemonPage: React.FC = () => {
                     <RowWrapper>
                         <ColumnWrapper>
                             <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
-                            <Stats stats={pokemon?.info.stats}><SubTitle>Stats</SubTitle></Stats>
+                            <Stats stats={pokemon?.info.stats}>
+                                <SubTitle>Stats</SubTitle>
+                            </Stats>
                         </ColumnWrapper>
                         <ColumnWrapper>
                             <Description info={pokemon?.description} />
@@ -112,9 +116,7 @@ const PokemonPage: React.FC = () => {
             )
         }
     }
-    return (
-        pokemonRender()
-    )
+    return pokemonRender()
 }
 
 export default PokemonPage

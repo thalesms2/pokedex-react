@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

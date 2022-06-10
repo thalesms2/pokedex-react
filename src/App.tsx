@@ -42,7 +42,7 @@ export default function App() {
                   <PokemonCard info={pokemon}/>
                 </Link>
               )
-            })}
+          })}
         </PokemonList>
       )
     }
