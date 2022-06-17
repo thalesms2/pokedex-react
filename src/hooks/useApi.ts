@@ -67,7 +67,7 @@ export default function useApi() {
     }
     async function getAll() {
         let response: Array<Pokemon> = [] 
-        for(let i = 1; i < 152; i++) {
+        for(let i = 1; i < 13; i++) {
           const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
           response.push(res.data)
         }
