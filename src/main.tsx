@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import PokemonPage from "./PokemonPage";
 
-import { GlobalStyles } from "./style/globalstyles";
+import { GlobalStyles } from "./styles/globalstyles";
 
 const queryClient = new QueryClient()
 
