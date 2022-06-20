@@ -19,9 +19,10 @@
 - [x] Pesquisar pokémons
 - [ ] Visualizar mais informações sobre o pokémon selecionado ou pesquisado (Em produção)
     - [ ] Clonar interface do site oficial do pokémon (Em produção)
-    - [ ] Mudar a descrição do pokémon selecionando a versão do jogo
+    - [x] Mudar a descrição do pokémon selecionando a versão do jogo
     - [ ] Mudar a arte do pokémon
     - [ ] Adicionar mais informações disponíveis
+- [x] Visão mobile
 - [ ] Tema dark
 - [ ] Botão para ativar scroll infinito na listagem de pokémon
 - [ ] Organizar resultados por...
