@@ -18,7 +18,15 @@ const PokemonList = styled.div`
 `
 
 const AppDiv = styled.div`
-  margin: 0 20vw;
+  @media (min-width: 1200px) {
+    margin: 0 20vw;
+  }
+  @media (max-width: 1200px) {
+    margin: 0 10vw;
+  }
+  @media (max-width: 1000px) {
+    margin: 0 5vw;
+  }
 `
 
 export default function App() {

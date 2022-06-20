@@ -29,3 +29,16 @@
 - [ ] Refatorar
 
 [⬆ Voltar ao topo](#Pokedex-react)<br>
+
+@media (min-width: 1200px) {
+    
+}
+@media (max-width: 1200px) {
+    
+}
+@media (max-width: 1000px) {
+    
+}
+@media (max-width: 500px) {
+    
+}

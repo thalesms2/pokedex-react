@@ -10,8 +10,19 @@ const CardDiv = styled.div`
     flex-direction: column;
     background-color: #F2F2F2;
     color: white;
-    width: 14vw;
     margin-top: .5em;
+    @media (min-width: 1200px) {
+        width: 14vw;
+    }
+    @media (max-width: 1200px) {
+        width: 18vw;
+    }
+    @media (max-width: 1000px) {
+        width: 28vw;
+    }
+    @media (max-width: 700px) {
+        width: 43vw;
+    }
 `
 
 const DescribeDiv = styled.div`
@@ -22,7 +33,7 @@ const DescribeDiv = styled.div`
 `
 
 const TitleCard = styled.span`
-    font-size: 145%;
+    font-size: 1.45em;
     margin-bottom: 5px;
     line-height: 125%;
     text-transform: capitalize;

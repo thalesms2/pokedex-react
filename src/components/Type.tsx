@@ -24,6 +24,12 @@ const TypeCell = styled.span<TypeCellProps>`
     font-family: "Flexo",arial,sans-serif;
     font-weight: ${props => props.big ? '' : '600'};
     text-transform: capitalize;
+    @media (min-width: 1200px) {
+        max-width: ${props => props.big ? '140px' : '110px'};
+    }
+    @media (max-width: 1200px) {
+        max-width: ${props => props.big ? '135px' : '110px'};
+    }
 `
 
 export default function Type(props: TypeProps) {
