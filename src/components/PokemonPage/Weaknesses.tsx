@@ -14,20 +14,12 @@ const Wrapper = styled.div`
 `
 
 const Weaknesses: React.FC<WeaknessesProps> = (props) => {
-    const [weak, setWeak] = useState<string[]>([])
-    useEffect(() => {
-        props.info.map((relation: any) => {
-            relation.double_damage_from.map((type: any) => {
-                setWeak((prev) => [...prev, type.name])
-            })
-        })
-    }, [props.info])
     
     return (
         <Wrapper>
-            {weak.map((type: string) => {
+            {/* {weak.map((type: string) => {
                 return <Type key={`${type}Weak`} type={type}  big />
-            })}
+            })} */}
         </Wrapper>
     )
 }

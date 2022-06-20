@@ -4,6 +4,8 @@ import { Pokemon } from '../types/pokemonTypes'
 
 
 export default function useApi() {
+
+
     function formatDescription(description: string) {
         description = description.toLowerCase()
         description = description.replace(/(\n)/gm, " ")
@@ -20,56 +22,60 @@ export default function useApi() {
         let response = version.replaceAll('-', ' ')
         return response
     }
+    function pickDescriptions(text: any, response: any) {
+        if(text.language.name === 'en') {
+            response.data.description.push({
+                text: formatDescription(text.flavor_text),
+                language: text.language.name,
+                version: response.data.description.length,
+                versionFixed: formatVersion(text.version.name)
+            })
+        }
+    }
     async function searchPokemon(pokemonName: string) {
         const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            .then(async (response) => {
+                response.data.types.map(async (type: any) => {
+                    await axios.get(type.type.url)
+                        .then((damageRelation) => {
+                            response.data.damageRelations = damageRelation.data
+                        })
+                        // tratar damage relations {double_damage_to from} transformar em 2 arrays tratados
+                })
+                return response.data
+            })
         const pokemonSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
-        const pokemonEvo = await axios.get(pokemonSpecies.data.evolution_chain.url)
-
-        const pokemonDamageRelations: any = []
-        pokemonInfo?.data.types.map(async (type: any) => {
-            const response = await axios.get(type.type.url)
-            pokemonDamageRelations.push(response.data.damage_relations)
-        })
-
-        // Descrições
-        const descriptions: any = []
-        let index = 0
-        pokemonSpecies?.data.flavor_text_entries.forEach((text: any) => {
-            if(text.language.name === 'en') {
-                const response = {
-                    text: formatDescription(text.flavor_text),
-                    language: text.language.name,
-                    version: index,
-                    versionFixed: formatVersion(text.version.name)
-                }
-                descriptions.push(response)
-                index++
-            }
-        })
+            .then(async (response) => {
+                await axios.get(response.data.evolution_chain.url)
+                    .then((evo) => { response.data.evo = evo.data })
+                // Description
+                response.data.description = []
+                response.data.flavor_text_entries.forEach((text: any) => { pickDescriptions(text, response) })
+                return response.data
+            })
 
         const response = {
             info:  {
-                id: pokemonInfo.data.id,
-                name: pokemonInfo.data.name,
-                img: pokemonInfo.data.sprites,
-                types: pokemonInfo.data.types,
-                height: pokemonInfo.data.height,
-                weight: pokemonInfo.data.weight,
-                stats: pokemonInfo.data.stats,
-                abilities: pokemonInfo.data.abilities,
-                gender: pokemonSpecies.data.gender_rate,
-                damageRelations: pokemonDamageRelations
+                id: pokemonInfo.id,
+                name: pokemonInfo.name,
+                img: pokemonInfo.sprites,
+                types: pokemonInfo.types,
+                height: pokemonInfo.height,
+                weight: pokemonInfo.weight,
+                stats: pokemonInfo.stats,
+                abilities: pokemonInfo.abilities,
+                gender: pokemonSpecies.gender_rate,
             },
-            description: descriptions,
-            evolution: pokemonEvo.data.chain.evolves_to
+            description: pokemonSpecies.description,
+            evolution: pokemonSpecies.evo
         }
         return await response
     }
     async function getAll() {
         let response: Array<Pokemon> = [] 
         for(let i = 1; i < 13; i++) {
-          const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-          response.push(res.data)
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+            response.push(res.data)
         }
         return await response
     }
