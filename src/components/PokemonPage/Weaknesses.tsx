@@ -17,9 +17,9 @@ const Weaknesses: React.FC<WeaknessesProps> = (props) => {
     
     return (
         <Wrapper>
-            {/* {weak.map((type: string) => {
+            {props.info.map((type: string) => {
                 return <Type key={`${type}Weak`} type={type}  big />
-            })} */}
+            })}
         </Wrapper>
     )
 }

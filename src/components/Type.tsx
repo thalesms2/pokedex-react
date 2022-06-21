@@ -25,7 +25,7 @@ const TypeCell = styled.span<TypeCellProps>`
     font-weight: ${props => props.big ? '' : '600'};
     text-transform: capitalize;
     @media (min-width: 1200px) {
-        max-width: ${props => props.big ? '140px' : '110px'};
+        max-width: ${props => props.big ? '130px' : '110px'};
     }
     @media (max-width: 1200px) {
         max-width: ${props => props.big ? '135px' : '110px'};

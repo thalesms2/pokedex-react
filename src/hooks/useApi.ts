@@ -35,25 +35,55 @@ export default function useApi() {
     async function searchPokemon(pokemonName: string) {
         const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then(async (response) => {
-                response.data.types.map(async (type: any) => {
-                    await axios.get(type.type.url)
+                response.data.weaknesses = []
+                response.data.removeWeak = []
+                response.data.types.map((type: any) => {
+                    axios.get(type.type.url)
                         .then((damageRelation) => {
-                            response.data.damageRelations = damageRelation.data
+                            damageRelation.data.damage_relations.double_damage_from.map((weak: any) => {
+                                const typeFound = response.data.weaknesses.indexOf(weak.name)
+                                if(typeFound === -1) {
+                                    response.data.weaknesses.push(weak.name)
+                                }
+                            })
+                            damageRelation.data.damage_relations.double_damage_to.map((strong: any) => {
+                                const typeStrongFound = response.data.removeWeak.indexOf(strong.name)
+                                if(typeStrongFound === -1) {
+                                    response.data.removeWeak.push(strong.name)
+                                }
+                            })
+                            damageRelation.data.damage_relations.half_damage_from.map((half: any) => {
+                                const typeHalfFound = response.data.removeWeak.indexOf(half.name)
+                                if(typeHalfFound === -1) {
+                                    response.data.removeWeak.push(half.name)
+                                }
+                            })
+                            damageRelation.data.damage_relations.no_damage_from.map((noDamage : any) => {
+                                const noDamageFound = response.data.removeWeak.indexOf(noDamage.name)
+                                if(noDamageFound === -1) {
+                                    response.data.removeWeak.push(noDamage.name)
+                                }
+                            })
                         })
-                        // tratar damage relations {double_damage_to from} transformar em 2 arrays tratados
+                        .finally(() => {
+                            response.data.removeWeak.map((remove: string) => {
+                                const conflictType = response.data.weaknesses.indexOf(remove)
+                                if(conflictType != -1) {
+                                    response.data.weaknesses.splice(conflictType, 1)
+                                }
+                            })
+                        })
                 })
                 return response.data
             })
         const pokemonSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
             .then(async (response) => {
-                await axios.get(response.data.evolution_chain.url)
-                    .then((evo) => { response.data.evo = evo.data })
                 // Description
                 response.data.description = []
                 response.data.flavor_text_entries.forEach((text: any) => { pickDescriptions(text, response) })
                 return response.data
             })
-
+            
         const response = {
             info:  {
                 id: pokemonInfo.id,
@@ -65,9 +95,9 @@ export default function useApi() {
                 stats: pokemonInfo.stats,
                 abilities: pokemonInfo.abilities,
                 gender: pokemonSpecies.gender_rate,
+                weaknesses: pokemonInfo.weaknesses,
             },
             description: pokemonSpecies.description,
-            evolution: pokemonSpecies.evo
         }
         return await response
     }
@@ -81,6 +111,7 @@ export default function useApi() {
     }
     return {
         getAll,
-        searchPokemon
+        searchPokemon,
+        formatVersion
     }
 }

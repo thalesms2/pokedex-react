@@ -7,7 +7,6 @@ import Header from "./components/Header"
 import Stats from "./components/PokemonPage/Stats"
 import Description from "./components/PokemonPage/Description"
 import Info from "./components/PokemonPage/Info"
-import Evolutions from "./components/PokemonPage/Evolutions"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
@@ -68,6 +67,7 @@ const SubTitle = styled.h3`
     font-weight: 400;
     font-size: 1.4em;
     width: 100%;
+    margin-bottom: .5em;
 `
 
 const BackButton = styled.button`
@@ -102,17 +102,6 @@ const PokemonPage: React.FC = () => {
                     <RowWrapper>
                         <ColumnWrapper>
                             <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
-                            <Stats stats={pokemon?.info.stats}>
-                                <SubTitle>Stats</SubTitle>
-                            </Stats>
-                        </ColumnWrapper>
-                        <ColumnWrapper>
-                            <Description info={pokemon?.description} />
-                            <Info 
-                                height={pokemon?.info.height} 
-                                weight={pokemon?.info.weight}
-                                abilities={pokemon?.info.abilities}
-                                gender={pokemon?.info.gender} />
                             <TypesDiv>
                                 <SubTitle>Type</SubTitle>
                                 {pokemon?.info.types.map((type: any) => {
@@ -121,13 +110,21 @@ const PokemonPage: React.FC = () => {
                             </TypesDiv>
                             <TypesDiv>
                                 <SubTitle>Weakness</SubTitle>
-                                <Weaknesses info={pokemon?.info.damageRelations}/>
+                                <Weaknesses info={pokemon?.info.weaknesses}/>
                             </TypesDiv>
                         </ColumnWrapper>
+                        <ColumnWrapper>
+                            <Description info={pokemon?.description} />
+                            <Info 
+                                height={pokemon?.info.height} 
+                                weight={pokemon?.info.weight}
+                                abilities={pokemon?.info.abilities}
+                                gender={pokemon?.info.gender} />
+                            <Stats stats={pokemon?.info.stats}>
+                                <SubTitle>Stats</SubTitle>
+                            </Stats>
+                        </ColumnWrapper>
                     </RowWrapper>
-                    <Evolutions>
-                        <SubTitle>Evolutions</SubTitle>
-                    </Evolutions>
                     <Link to="/">
                         <BackButton>Explorar mais Pokémon</BackButton>
                     </Link>
