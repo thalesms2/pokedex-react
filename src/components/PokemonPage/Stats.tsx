@@ -12,7 +12,7 @@ interface StatsProps {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #A4A4A4;
+    background-color: ${({theme}) => theme.colors.backgroundCard};
     border-radius: 10px;
     padding: .5em .8em;
     margin-top: 1em;
@@ -38,6 +38,7 @@ const StatLabel = styled.div`
     font-size: 1em;
     text-align: center;
     max-width: 60px;
+    color: ${({theme}) => theme.colors.text}
 `
 
 const Stats: React.FC<StatsProps> = (props) => {

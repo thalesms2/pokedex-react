@@ -58,9 +58,10 @@ export default function App() {
 
   return (
     <AppDiv>
-      <Header title="Pokédex" />
-      <Filter handleInputChange={handleInputChange} value={search}/> 
-      { pokemonList() }
+      <Header title="Pokédex">
+        <Filter handleInputChange={handleInputChange} value={search}/> 
+        { pokemonList() }
+      </Header>
     </AppDiv>
   )
 }

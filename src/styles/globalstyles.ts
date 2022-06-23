@@ -16,12 +16,14 @@ export const GlobalStyles = createGlobalStyle`
         vertical-align: baseline;
         list-style: none;
         border: 0;
+        transition: linear .2s;
+
     }
     a {
         text-decoration: none;
     }
     body {
-        background-color: white;
+        background-color: ${({ theme }) => theme.colors.background};
     }
     @font-face {
         font-family: 'Flexo';

@@ -5,18 +5,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import PokemonPage from "./PokemonPage";
 
-import { GlobalStyles } from "./styles/globalstyles";
-
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <GlobalStyles />
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path="/" element={<App />}/>
-          <Route path=":pokemonName" element={<PokemonPage />}/>
-        </Routes>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<App />}/>
+        <Route path=":pokemonName" element={<PokemonPage />}/>
+      </Routes>
+    </QueryClientProvider>
+  </BrowserRouter>
 );

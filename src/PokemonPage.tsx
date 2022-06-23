@@ -43,7 +43,7 @@ const ColumnWrapper = styled.div`
     flex-direction: column;
     max-width: 430px;
     img {
-        background-color: #F2F2F2;
+        background-color: ${({theme}) => theme.colors.backgroundCard};
         padding-bottom: 30px;
     }
     @media (min-width: 500px) {
@@ -68,10 +68,11 @@ const SubTitle = styled.h3`
     font-size: 1.4em;
     width: 100%;
     margin-bottom: .5em;
+    color: ${({theme}) => theme.colors.text};
 `
 
 const BackButton = styled.button`
-    background-color: #EE6B2F;
+    background-color: ${({theme}) => theme.colors.primary};
     border-radius: 5px;
     color: white;
     padding: .8em 1.5em;
@@ -80,7 +81,7 @@ const BackButton = styled.button`
     font-size: 1em;
     margin: 1em;
     &:hover {
-        background-color: #DA471B;
+        background-color: ${({theme}) => theme.colors.primaryHover};
     }
 `
 
@@ -98,36 +99,37 @@ const PokemonPage: React.FC = () => {
         } else {
             return (
                 <PokemonWrapper>
-                    <Header pokemonPage title={`${pokemon?.info.name} ${id}`}/>
-                    <RowWrapper>
-                        <ColumnWrapper>
-                            <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
-                            <TypesDiv>
-                                <SubTitle>Type</SubTitle>
-                                {pokemon?.info.types.map((type: any) => {
-                                    return <Type key={type.type.name} type={type.type.name} big/>
-                                })}
-                            </TypesDiv>
-                            <TypesDiv>
-                                <SubTitle>Weakness</SubTitle>
-                                <Weaknesses info={pokemon?.info.weaknesses}/>
-                            </TypesDiv>
-                        </ColumnWrapper>
-                        <ColumnWrapper>
-                            <Description info={pokemon?.description} />
-                            <Info 
-                                height={pokemon?.info.height} 
-                                weight={pokemon?.info.weight}
-                                abilities={pokemon?.info.abilities}
-                                gender={pokemon?.info.gender} />
-                            <Stats stats={pokemon?.info.stats}>
-                                <SubTitle>Stats</SubTitle>
-                            </Stats>
-                        </ColumnWrapper>
-                    </RowWrapper>
-                    <Link to="/">
-                        <BackButton>Explorar mais Pokémon</BackButton>
-                    </Link>
+                    <Header pokemonPage title={`${pokemon?.info.name} ${id}`}>
+                        <RowWrapper>
+                            <ColumnWrapper>
+                                <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
+                                <TypesDiv>
+                                    <SubTitle>Type</SubTitle>
+                                    {pokemon?.info.types.map((type: any) => {
+                                        return <Type key={type.type.name} type={type.type.name} big/>
+                                    })}
+                                </TypesDiv>
+                                <TypesDiv>
+                                    <SubTitle>Weakness</SubTitle>
+                                    <Weaknesses info={pokemon?.info.weaknesses}/>
+                                </TypesDiv>
+                            </ColumnWrapper>
+                            <ColumnWrapper>
+                                <Description info={pokemon?.description} />
+                                <Info 
+                                    height={pokemon?.info.height} 
+                                    weight={pokemon?.info.weight}
+                                    abilities={pokemon?.info.abilities}
+                                    gender={pokemon?.info.gender} />
+                                <Stats stats={pokemon?.info.stats}>
+                                    <SubTitle>Stats</SubTitle>
+                                </Stats>
+                            </ColumnWrapper>
+                        </RowWrapper>
+                        <Link to="/">
+                            <BackButton>Explorar mais Pokémon</BackButton>
+                        </Link>
+                    </Header>
                 </PokemonWrapper>
             )
         }

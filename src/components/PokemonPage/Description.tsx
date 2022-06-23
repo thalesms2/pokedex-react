@@ -16,11 +16,13 @@ const DescriptionText = styled.span`
     font-weight: 500;
     font-size: 1.1em;
     margin-bottom: 1em;
+    color: ${({theme}) => theme.colors.text};
     `
 const LabelSelect = styled.label`
     font-family: "Flexo",arial,sans-serif;
     margin-bottom: .2em;
     font-size: 1.3em;
+    color: ${({theme}) => theme.colors.text};
 `
 const Select = styled.select`
     font-family: "Flexo",arial,sans-serif;
@@ -52,7 +54,7 @@ const Description = ({ info }: DescriptionProps) => {
 
     return (
         <DescriptionWrapper>
-             <DescriptionText>
+            <DescriptionText>
                 { info[index].text }
             </DescriptionText>
             <LabelSelect>Version: </LabelSelect>

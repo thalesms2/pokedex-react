@@ -1,6 +1,7 @@
 import useApi from "./useApi"
 import { useState } from "react"
 
+
 export default function handles() {
     const {
         searchPokemon
@@ -21,6 +22,6 @@ export default function handles() {
         handleSubmitSearch,
         handleInputChange,
         index,
-        handleSelectChange
+        handleSelectChange,
     }
 }

@@ -8,7 +8,7 @@ interface PokemonCardProps {
 const CardDiv = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #F2F2F2;
+    background-color: ${({theme}) => theme.colors.backgroundCard};
     color: white;
     margin-top: .5em;
     @media (min-width: 1200px) {
@@ -28,7 +28,7 @@ const CardDiv = styled.div`
 const DescribeDiv = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: ${({theme}) => theme.colors.background};
     padding: .5em;
 `
 
@@ -39,7 +39,7 @@ const TitleCard = styled.span`
     text-transform: capitalize;
     font-family: 'Flexo',arial,sans-serif;
     font-weight: 600;
-    color: #313131;
+    color: ${({theme}) => theme.colors.text};
 `
 
 const TypesDiv = styled.div`
@@ -51,7 +51,7 @@ const IdParagraph = styled.p`
     font-family: "Flexo",arial,sans-serif;
     font-weight: 600;
     padding-top: 2px;
-    color: #919191;
+    color: ${({theme}) => theme.colors.subtext};
     font-size: 80%;
     line-height: 125%;
     margin: .5em 0;
