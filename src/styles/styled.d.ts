@@ -23,10 +23,18 @@ declare module 'styled-components' {
         title: string
         colors: {
             primary: string
+            primaryHover: string
             secundary: string
 
             background: string
+            backgroundCard: string
             text: string
+            subtext: string
+        }
+        fontSizes: {
+            small: string
+            medium: string
+            large: string
         }
     }
 }
