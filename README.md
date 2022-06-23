@@ -23,10 +23,10 @@
     - [ ] Mudar a arte do pokémon
     - [ ] Adicionar mais informações disponíveis
 - [x] Visão mobile
-- [ ] Tema dark
+- [x] Tema dark
 - [ ] Botão para ativar scroll infinito na listagem de pokémon
 - [ ] Organizar resultados por...
 - [ ] Card com breve informações quando der hover em um pokémon listado
-- [ ] Refatorar
+- [ ] Refatorar...
 
 [⬆ Voltar ao topo](#Pokedex-react)<br>
