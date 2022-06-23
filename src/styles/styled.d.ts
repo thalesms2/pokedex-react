@@ -31,10 +31,5 @@ declare module 'styled-components' {
             text: string
             subtext: string
         }
-        fontSizes: {
-            small: string
-            medium: string
-            large: string
-        }
     }
 }
