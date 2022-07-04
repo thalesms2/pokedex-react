@@ -11,11 +11,6 @@ const pokeballAnimation = keyframes`
 `
 
 const LoadingDiv = styled.div`
-  /* display: flex;
-  height: 50vh;
-  justify-content: center;
-  align-items: center; */
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -56,7 +51,6 @@ const Pokeball = styled.div`
 `
 
 const Loading: React.FC = () => {
-
     return (
         <LoadingDiv>
             <Pokeball />
