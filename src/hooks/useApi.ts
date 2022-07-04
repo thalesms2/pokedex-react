@@ -1,10 +1,6 @@
 import axios from 'axios'
 
-import { Pokemon } from '../types/pokemonTypes'
-
-
 export default function useApi() {
-
 
     function formatDescription(description: string) {
         description = description.toLowerCase()
@@ -101,17 +97,17 @@ export default function useApi() {
         }
         return await response
     }
-    async function getAll() {
-        let response: Array<Pokemon> = [] 
-        for(let i = 1; i < 13; i++) {
+    async function infinityScroll(pageParam: number) {
+        let response: any = []
+        for(let i = pageParam + 1; i <= pageParam + 8; i++) {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
             response.push(res.data)
         }
-        return await response
+        return response
     }
     return {
-        getAll,
         searchPokemon,
-        formatVersion
+        formatVersion,
+        infinityScroll
     }
 }
