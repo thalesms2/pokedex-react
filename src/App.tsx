@@ -42,9 +42,7 @@ export default function App() {
   
   const { ref, inView } = useInView()
   const {
-    status,
     data,
-    error,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
