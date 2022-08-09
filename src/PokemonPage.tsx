@@ -45,6 +45,7 @@ const ColumnWrapper = styled.div`
     img {
         background-color: ${({theme}) => theme.colors.backgroundCard};
         padding-bottom: 30px;
+        transition: linear .2s;
     }
     @media (min-width: 500px) {
         &:nth-child(1) {
@@ -69,6 +70,7 @@ const SubTitle = styled.h3`
     width: 100%;
     margin-bottom: .5em;
     color: ${({theme}) => theme.colors.text};
+    transition: linear .2s;
 `
 
 const BackButton = styled.button`
@@ -80,6 +82,7 @@ const BackButton = styled.button`
     font-weight: 600;
     font-size: 1em;
     margin: 1em;
+    transition: linear .2s;
     &:hover {
         background-color: ${({theme}) => theme.colors.primaryHover};
     }
@@ -127,7 +130,7 @@ const PokemonPage: React.FC = () => {
                             </ColumnWrapper>
                         </RowWrapper>
                         <Link to="/">
-                            <BackButton>Explorar mais Pokémon</BackButton>
+                            <BackButton>Explorar mais Pokémons</BackButton>
                         </Link>
                     </Header>
                 </PokemonWrapper>

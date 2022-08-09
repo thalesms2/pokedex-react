@@ -32,6 +32,7 @@ const Title = styled.h1<PokemonPageProp>`
     ${props => props.page ? 'text-transform: capitalize;': ''}
     ${props => props.page ? 'margin-bottom: 5px;': ''}
     margin-right: .5em;
+    transition: linear .2s;
 `
 
 const ThemeSwitcher = styled.button`
@@ -42,6 +43,7 @@ const ThemeSwitcher = styled.button`
     justify-content: center;
     align-items: center;
     border-radius: 5em;
+    transition: linear .2s;
 `
 
 export default function Header(props: HeaderProps) {

@@ -9,6 +9,7 @@ const CardDiv = styled.div`
     display: flex;
     flex-direction: column;
     background-color: ${({theme}) => theme.colors.backgroundCard};
+    transition: linear .2s;
     color: white;
     margin-top: .5em;
     @media (min-width: 1200px) {
@@ -30,6 +31,7 @@ const DescribeDiv = styled.div`
     flex-direction: column;
     background-color: ${({theme}) => theme.colors.background};
     padding: .5em;
+    transition: linear .2s;
 `
 
 const TitleCard = styled.span`
@@ -40,6 +42,7 @@ const TitleCard = styled.span`
     font-family: 'Flexo',arial,sans-serif;
     font-weight: 600;
     color: ${({theme}) => theme.colors.text};
+    transition: linear .2s;
 `
 
 const TypesDiv = styled.div`
@@ -55,6 +58,7 @@ const IdParagraph = styled.p`
     font-size: 80%;
     line-height: 125%;
     margin: .5em 0;
+    transition: linear .2s;
 `
 
 export default function PokemonCard(props: PokemonCardProps) {
