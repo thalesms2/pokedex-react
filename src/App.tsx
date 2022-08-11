@@ -19,7 +19,7 @@ const PokemonList = styled.div`
   justify-content: space-between;
 `
 
-const AppDiv = styled.div`
+const Wrapper = styled.div`
   @media (min-width: 1200px) {
     margin: 0 20vw;
   }
@@ -61,7 +61,7 @@ export default function App() {
   }, [inView])
 
   return (
-    <AppDiv>
+    <Wrapper>
       <Header title="Pokédex">
         <Filter handleInputChange={handleInputChange} value={search}/> 
         <PokemonList>
@@ -85,6 +85,6 @@ export default function App() {
             : 'Nothing more to load'}
         </div>
       </Header>
-    </AppDiv>
+    </Wrapper>
   )
 }
