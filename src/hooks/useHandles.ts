@@ -2,26 +2,32 @@ import useApi from "./useApi"
 import { useState } from "react"
 
 
-export default function handles() {
+export default function useHandles() {
     const {
         searchPokemon
     } = useApi()
     const [search, setSearch] = useState<string>('')
-    const [index, setIndex] = useState(0)
+    const [gameDescription, setGameDescription] = useState(0)
+    const [sprite, setSprite] = useState<string>('')
     const handleSubmitSearch = () => {
         searchPokemon(search)
     }
     const handleInputChange = (value: string) => {
         setSearch(value)
     }
-    const handleSelectChange = (value: string) => {
-        setIndex(Number(value))
+    const handleGameDescriptionChange = (value: string) => {
+        setGameDescription(Number(value))
+    }
+    const handleSpriteChange = (value: string) => {
+        setSprite(value)
     }
     return {
         search,
         handleSubmitSearch,
         handleInputChange,
-        index,
-        handleSelectChange,
+        gameDescription,
+        handleGameDescriptionChange,
+        sprite,
+        handleSpriteChange
     }
 }

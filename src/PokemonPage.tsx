@@ -1,5 +1,6 @@
 import { useQuery } from "react-query"
 import { Link, useParams } from "react-router-dom"
+import useHandles from "./hooks/useHandles"
 
 import Type from "./components/Type"
 import Loading from "./components/Loading"
@@ -7,10 +8,10 @@ import Header from "./components/Header"
 import Stats from "./components/PokemonPage/Stats"
 import Description from "./components/PokemonPage/Description"
 import Info from "./components/PokemonPage/Info"
+import Weaknesses from "./components/PokemonPage/Weaknesses"
 
 import styled from "styled-components"
 import useApi from "./hooks/useApi"
-import Weaknesses from "./components/PokemonPage/Weaknesses"
 
 const PokemonWrapper = styled.div`
     display: flex;
@@ -88,13 +89,36 @@ const BackButton = styled.button`
     }
 `
 
+const Select = styled.select`
+    font-family: "Flexo",arial,sans-serif;
+    text-transform: capitalize;
+    margin-bottom: .5em;
+    background-color: #616161;
+    color: white;
+    font-size: 1.2em;
+    max-width: 150px;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #616161;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: #313131;
+        border-radius: 20px;
+    }
+`
+
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
+    // const { handleSpriteChange, sprite } = useHandles()
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
 
-    const imgUrl = pokemon?.info.img.other['official-artwork'].front_default
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
+    const sprite = pokemon?.info.img.other['official-artwork'].front_default
 
     function pokemonRender() {
         if(isLoading) {
@@ -105,7 +129,12 @@ const PokemonPage: React.FC = () => {
                     <Header pokemonPage title={`${pokemon?.info.name} ${id}`}>
                         <RowWrapper>
                             <ColumnWrapper>
-                                <img src={imgUrl} alt={`image of ${pokemon?.info.name}`} />
+                                <img src={sprite} alt={`image of ${pokemon?.info.name}`} />
+                                {/* <Select name="sprite" defaultValue={sprite} onChange={(e) => handleSpriteChange(e.target.value)}>
+                                    {pokemon?.info.img.map((art: any) => {
+                                        return <option key={`${art.toString()}-${pokemon?.info.name}}`} value={'placeholder'}>{'placeholder'}</option>
+                                    })}
+                                </Select> */}
                                 <TypesDiv>
                                     <SubTitle>Type</SubTitle>
                                     {pokemon?.info.types.map((type: any) => {

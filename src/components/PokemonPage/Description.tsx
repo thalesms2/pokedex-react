@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import handles from '../../hooks/useHandles'
+import useHandles from '../../hooks/useHandles'
 
 interface DescriptionProps {
     info: any
@@ -48,17 +48,17 @@ const Select = styled.select`
 
 const Description = ({ info }: DescriptionProps) => {
     const {
-        index,
-        handleSelectChange
-    } = handles()
+        gameDescription,
+        handleGameDescriptionChange
+    } = useHandles()
 
     return (
         <DescriptionWrapper>
             <DescriptionText>
-                { info[index].text }
+                { info[gameDescription].text }
             </DescriptionText>
             <LabelSelect>Version: </LabelSelect>
-            <Select name="version" defaultValue={index} onChange={(e) => handleSelectChange(e.target.value)}>
+            <Select name="version" defaultValue={gameDescription} onChange={(e) => handleGameDescriptionChange(e.target.value)}>
                 {info.map((ver: any) => {
                     return <option key={ver.versionFixed} value={ver.version}>{ver.versionFixed}</option>
                 })}

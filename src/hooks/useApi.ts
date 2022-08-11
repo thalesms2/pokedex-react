@@ -28,6 +28,18 @@ export default function useApi() {
             })
         }
     }
+    function formatSprites(sprite: string) {
+        
+    }
+    function pickSprites(sprites: any) {
+        const response = []
+        Object.keys(sprites).forEach((key, index) => {
+            response.push({
+                'version': key,
+                'versionFixed': 'plac', 
+            })
+        });
+    }
     async function searchPokemon(pokemonName: string) {
         const pokemonInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then(async (response) => {
