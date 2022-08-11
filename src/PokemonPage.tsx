@@ -114,11 +114,10 @@ const Select = styled.select`
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    // const { handleSpriteChange, sprite } = useHandles()
+    const { handleSpriteChange, sprite } = useHandles()
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
 
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
-    const sprite = pokemon?.info.img.other['official-artwork'].front_default
 
     function pokemonRender() {
         if(isLoading) {
@@ -130,11 +129,11 @@ const PokemonPage: React.FC = () => {
                         <RowWrapper>
                             <ColumnWrapper>
                                 <img src={sprite} alt={`image of ${pokemon?.info.name}`} />
-                                {/* <Select name="sprite" defaultValue={sprite} onChange={(e) => handleSpriteChange(e.target.value)}>
+                                <Select name="sprite" defaultValue={sprite} onChange={(e) => handleSpriteChange(e.target.value)}>
                                     {pokemon?.info.img.map((art: any) => {
                                         return <option key={`${art.toString()}-${pokemon?.info.name}}`} value={'placeholder'}>{'placeholder'}</option>
                                     })}
-                                </Select> */}
+                                </Select>
                                 <TypesDiv>
                                     <SubTitle>Type</SubTitle>
                                     {pokemon?.info.types.map((type: any) => {

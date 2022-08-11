@@ -29,14 +29,15 @@ export default function useApi() {
         }
     }
     function formatSprites(sprite: string) {
-        
+
     }
     function pickSprites(sprites: any) {
         const response = []
         Object.keys(sprites).forEach((key, index) => {
             response.push({
                 'version': key,
-                'versionFixed': 'plac', 
+                'versionFixed': formatSprites(key),
+                'url': sprites.key,
             })
         });
     }
