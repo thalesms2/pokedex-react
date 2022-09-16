@@ -11,7 +11,7 @@ interface PokemonPageProp {
     page?: boolean
 }
 
-const Header = styled.div<PokemonPageProp>`
+const Header = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -57,13 +57,13 @@ export default function App() {
 	const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', combineTheme(light))
 
     const toggleTheme = () => {
-    }
         setTheme(theme.title=== 'light' ? combineTheme(dark) : combineTheme(light))
+    }
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             <Header>
-                <Title page={props.pokemonPage}>{props.title}</Title>
+                <Title>Pokemon</Title>
                 <ThemeSwitcher onClick={() => toggleTheme()}>
                     {theme.title === "dark" ? (
                         <FaSun color={theme.colors.primary} fontSize={30} />

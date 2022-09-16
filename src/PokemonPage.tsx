@@ -4,7 +4,6 @@ import useHandles from "./hooks/useHandles"
 
 import Type from "./components/Type"
 import Loading from "./components/Loading"
-import Header from "./components/Header"
 import Stats from "./components/PokemonPage/Stats"
 import Description from "./components/PokemonPage/Description"
 import Info from "./components/PokemonPage/Info"
@@ -125,7 +124,6 @@ const PokemonPage: React.FC = () => {
         } else {
             return (
                 <PokemonWrapper>
-                    <Header pokemonPage title={`${pokemon?.info.name} ${id}`}>
                         <RowWrapper>
                             <ColumnWrapper>
                                 <img src={sprite} alt={`image of ${pokemon?.info.name}`} />
@@ -160,7 +158,6 @@ const PokemonPage: React.FC = () => {
                         <Link to="/">
                             <BackButton>Explorar mais Pokémons</BackButton>
                         </Link>
-                    </Header>
                 </PokemonWrapper>
             )
         }
