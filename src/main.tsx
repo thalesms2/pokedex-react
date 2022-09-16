@@ -5,15 +5,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import PokemonPage from "./PokemonPage";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<App />}/>
-        <Route path=":pokemonName" element={<PokemonPage />}/>
-      </Routes>
-    </QueryClientProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <Routes>
+                <Route path="/" element={<App />}>
+                    <Route index element={<PokemonPage />} />
+                    <Route path=":pokemonName" element={<PokemonPage />} />
+                </Route>
+            </Routes>
+        </QueryClientProvider>
+    </BrowserRouter>
 );

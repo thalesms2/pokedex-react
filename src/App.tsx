@@ -1,90 +1,78 @@
-import styled from 'styled-components'
-import { useInfiniteQuery } from 'react-query'
-import { Link } from 'react-router-dom'
-import { useInView } from 'react-intersection-observer'
-import React, { useEffect } from 'react'
+import styled, { DefaultTheme, ThemeProvider } from "styled-components"
 
-import PokemonCard from './components/PokemonCard'
-import Header from './components/Header'
-import Filter from './components/Filter'
-import Loading from './components/Loading'
+import { Outlet } from "react-router-dom";
+import { FaSun, FaMoon } from 'react-icons/fa'
 
-import useApi from './hooks/useApi'
-import useHandles from './hooks/useHandles'
+import { combineTheme, light, dark } from "./styles/themes"
+import { GlobalStyles } from './styles/globalstyles'
+import usePersistedState from './hooks/usePersistedState'
 
-const PokemonList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+interface PokemonPageProp {
+    page?: boolean
+}
+
+const Header = styled.div<PokemonPageProp>`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const Title = styled.h1<PokemonPageProp>`
+    color: ${({ theme }) => theme.colors.text};
+    font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
+    line-height: 125%;
+    font-size: ${props => props.page ? 'font-size: 145%;' : '3em'};
+    ${props => props.page ? 'text-transform: capitalize;': ''}
+    ${props => props.page ? 'margin-bottom: 5px;': ''}
+    margin-right: .5em;
+    transition: linear .2s;
+`
+
+const ThemeSwitcher = styled.button`
+    background-color: ${({theme}) => theme.colors.backgroundCard};
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5em;
+    transition: linear .2s;
 `
 
 const Wrapper = styled.div`
-  @media (min-width: 1200px) {
-    margin: 0 20vw;
-  }
-  @media (max-width: 1200px) {
-    margin: 0 10vw;
-  }
-  @media (max-width: 1000px) {
-    margin: 0 5vw;
-  }
-`
+    @media (min-width: 1200px) {
+        margin: 0 20vw;
+    }
+    @media (max-width: 1200px) {
+        margin: 0 10vw;
+    }
+    @media (max-width: 1000px) {
+        margin: 0 5vw;
+    }
+`;
 
 export default function App() {
-  const { 
-    infinityScroll
-  } = useApi()
-  const {
-    search,
-    handleInputChange
-  } = useHandles()
-  
-  const { ref, inView } = useInView()
-  const {
-    data,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery(
-    'pokemons',
-    ({pageParam = 0}) => infinityScroll(pageParam),
-    {
-      getNextPageParam: (page, all) => (page.length * all.length)
-    }
-  )
+	const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', combineTheme(light))
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage()
+    const toggleTheme = () => {
     }
-  }, [inView])
-
-  return (
-    <Wrapper>
-      <Header title="Pokédex">
-        <Filter handleInputChange={handleInputChange} value={search}/> 
-        <PokemonList>
-          {data?.pages.map((page: any) => (
-            <React.Fragment key={`pokemon${page[0].id}`}>
-              {page.map((pokemon: any) => {
-                return (
-                  <Link to={pokemon.name} key={pokemon.id.toString()}>
-                    <PokemonCard info={pokemon}/>
-                  </Link>
-                )
-              })}
-            </React.Fragment>
-          ))}
-        </PokemonList>
-        <div ref={ref}>
-          {isFetchingNextPage
-            ? <Loading />
-            : hasNextPage
-            ? 'Load Newer'
-            : 'Nothing more to load'}
-        </div>
-      </Header>
-    </Wrapper>
-  )
+        setTheme(theme.title=== 'light' ? combineTheme(dark) : combineTheme(light))
+    return (
+        <ThemeProvider theme={theme}>
+            <GlobalStyles />
+            <Header>
+                <Title page={props.pokemonPage}>{props.title}</Title>
+                <ThemeSwitcher onClick={() => toggleTheme()}>
+                    {theme.title === "dark" ? (
+                        <FaSun color={theme.colors.primary} fontSize={30} />
+                    ) : (
+                        <FaMoon color={theme.colors.text} fontSize={30} />
+                    )}
+                </ThemeSwitcher>
+            </Header>
+            <Outlet />
+        </ThemeProvider>
+    );
 }
