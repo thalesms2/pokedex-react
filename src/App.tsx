@@ -19,7 +19,7 @@ const Header = styled.div`
 `
 
 const Title = styled.h1<PokemonPageProp>`
-    color: ${({ theme }) => theme.colors.text};
+    color: var(--text-color);
     font-family: "Flexo",arial,sans-serif;
     font-weight: 600;
     line-height: 125%;
@@ -31,7 +31,7 @@ const Title = styled.h1<PokemonPageProp>`
 `
 
 const ThemeSwitcher = styled.button`
-    background-color: ${({theme}) => theme.colors.backgroundCard};
+    background-color: var(--background-card);
     width: 45px;
     height: 45px;
     display: flex;
@@ -54,25 +54,27 @@ const Wrapper = styled.div`
 `;
 
 export default function App() {
-	const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', combineTheme(light))
+	// // const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', combineTheme(light))
 
-    const toggleTheme = () => {
-        setTheme(theme.title=== 'light' ? combineTheme(dark) : combineTheme(light))
-    }
+    // const toggleTheme = () => {
+    //     setTheme(theme.title=== 'light' ? combineTheme(dark) : combineTheme(light))
+    // }
     return (
-        <ThemeProvider theme={theme}>
+        // <ThemeProvider theme={theme}>
+        <div>
             <GlobalStyles />
             <Header>
                 <Title>Pokemon</Title>
-                <ThemeSwitcher onClick={() => toggleTheme()}>
+                {/* <ThemeSwitcher onClick={() => toggleTheme()}>
                     {theme.title === "dark" ? (
                         <FaSun color={theme.colors.primary} fontSize={30} />
                     ) : (
                         <FaMoon color={theme.colors.text} fontSize={30} />
                     )}
-                </ThemeSwitcher>
+                </ThemeSwitcher> */}
             </Header>
             <Outlet />
-        </ThemeProvider>
+            </div>
+        // </ThemeProvider>
     );
 }

@@ -17,11 +17,27 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
         border: 0;
     }
+    :root {
+        --background: '#fff';
+        --background-card: '#F2F2F2';
+        --primary-color: '#EE6B2F';
+        --primary-hover: '#DA471B';
+        --text-color: '#313131';
+        --sub-text-color: '#919191';
+    }
+    [data-theme='dark'] {
+        --background: '#121212';
+        --background-card: '#373737';
+        --primary-color: '#EE6B2F';
+        --primary-hover: '#DA471B';
+        --text-color: '#DFDFDF';
+        --sub-text-color: '#9E9E9E';
+    }
     a {
         text-decoration: none;
     }
     body {
-        background-color: ${({ theme }) => theme.colors.background};
+        background-color: var(--background);
         transition: linear .2s;
     }
     @font-face {
