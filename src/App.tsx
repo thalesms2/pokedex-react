@@ -1,11 +1,11 @@
-import styled, { DefaultTheme, ThemeProvider } from "styled-components"
+import styled, { ThemeProvider } from "styled-components"
+import React from 'react'
 
 import { Outlet } from "react-router-dom";
 import { FaSun, FaMoon } from 'react-icons/fa'
 
-import { combineTheme, light, dark } from "./styles/themes"
+import { light, dark } from "./styles/themes/Theme.styled"
 import { GlobalStyles } from './styles/globalstyles'
-import usePersistedState from './hooks/usePersistedState'
 
 interface PokemonPageProp {
     page?: boolean
@@ -54,27 +54,38 @@ const Wrapper = styled.div`
 `;
 
 export default function App() {
-	// // const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', combineTheme(light))
-
-    // const toggleTheme = () => {
-    //     setTheme(theme.title=== 'light' ? combineTheme(dark) : combineTheme(light))
-    // }
+    const [theme, setTheme] = React.useState(() => {
+        localStorage.setItem("current-theme", JSON.stringify(light))
+        return light
+    })
+    const toggleTheme = () => {
+        if(theme === light) {
+            setTheme(dark)
+        } else {
+            setTheme(light)
+        }
+        localStorage.setItem("current-theme", JSON.stringify(theme))
+    }
+    React.useEffect(() => {
+        const currentTheme = JSON.parse(localStorage.getItem("current-theme") || '')
+        if (currentTheme) {
+            setTheme(currentTheme)
+        }
+    })
     return (
-        // <ThemeProvider theme={theme}>
-        <div>
+        <ThemeProvider theme={theme}>
             <GlobalStyles />
             <Header>
                 <Title>Pokemon</Title>
-                {/* <ThemeSwitcher onClick={() => toggleTheme()}>
+                <ThemeSwitcher onClick={() => toggleTheme()}>
                     {theme.title === "dark" ? (
                         <FaSun color={theme.colors.primary} fontSize={30} />
                     ) : (
                         <FaMoon color={theme.colors.text} fontSize={30} />
                     )}
-                </ThemeSwitcher> */}
+                </ThemeSwitcher>
             </Header>
             <Outlet />
-            </div>
         // </ThemeProvider>
     );
 }
