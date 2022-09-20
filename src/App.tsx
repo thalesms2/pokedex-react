@@ -55,8 +55,12 @@ const Wrapper = styled.div`
 
 export default function App() {
     const [theme, setTheme] = React.useState(() => {
-        localStorage.setItem("current-theme", JSON.stringify(light))
-        return light
+        if(localStorage.getItem('theme')) {
+            return JSON.parse(localStorage.getItem('theme') || '')
+        } else {
+            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            return isDarkMode ? dark : light 
+        }
     })
     const toggleTheme = () => {
         if(theme === light) {
@@ -64,12 +68,11 @@ export default function App() {
         } else {
             setTheme(light)
         }
-        localStorage.setItem("current-theme", JSON.stringify(theme))
+        localStorage.setItem("theme", JSON.stringify(theme))
     }
     React.useEffect(() => {
-        const currentTheme = JSON.parse(localStorage.getItem("current-theme") || '')
-        if (currentTheme) {
-            setTheme(currentTheme)
+        if(localStorage.getItem('theme')) {
+            setTheme(JSON.parse(localStorage.getItem('theme') || ''))
         }
     })
     return (
