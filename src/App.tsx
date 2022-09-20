@@ -6,6 +6,7 @@ import { FaSun, FaMoon } from 'react-icons/fa'
 
 import { light, dark } from "./styles/themes/Theme.styled"
 import { GlobalStyles } from './styles/globalstyles'
+import useHandles from "./hooks/useHandles";
 
 interface PokemonPageProp {
     page?: boolean
@@ -19,7 +20,7 @@ const Header = styled.div`
 `
 
 const Title = styled.h1<PokemonPageProp>`
-    color: var(--text-color);
+    color: ${({ theme }) => theme.colors.text};
     font-family: "Flexo",arial,sans-serif;
     font-weight: 600;
     line-height: 125%;
@@ -31,7 +32,7 @@ const Title = styled.h1<PokemonPageProp>`
 `
 
 const ThemeSwitcher = styled.button`
-    background-color: var(--background-card);
+    background-color: ${({ theme }) => theme.colors.backgroundCard};
     width: 45px;
     height: 45px;
     display: flex;
@@ -51,44 +52,33 @@ const Wrapper = styled.div`
     @media (max-width: 1000px) {
         margin: 0 5vw;
     }
-`;
+`
 
 export default function App() {
     const [theme, setTheme] = React.useState(() => {
-        if(localStorage.getItem('theme')) {
-            return JSON.parse(localStorage.getItem('theme') || '')
-        } else {
-            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            return isDarkMode ? dark : light 
-        }
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        return isDarkMode ? dark : light 
     })
+    const { title } = useHandles()
     const toggleTheme = () => {
-        if(theme === light) {
-            setTheme(dark)
-        } else {
-            setTheme(light)
-        }
-        localStorage.setItem("theme", JSON.stringify(theme))
+        (theme === light) ? setTheme(dark) : setTheme(light)
     }
-    React.useEffect(() => {
-        if(localStorage.getItem('theme')) {
-            setTheme(JSON.parse(localStorage.getItem('theme') || ''))
-        }
-    })
     return (
         <ThemeProvider theme={theme}>
-            <GlobalStyles />
-            <Header>
-                <Title>Pokemon</Title>
-                <ThemeSwitcher onClick={() => toggleTheme()}>
-                    {theme.title === "dark" ? (
-                        <FaSun color={theme.colors.primary} fontSize={30} />
-                    ) : (
-                        <FaMoon color={theme.colors.text} fontSize={30} />
-                    )}
-                </ThemeSwitcher>
-            </Header>
-            <Outlet />
-        // </ThemeProvider>
-    );
+            <Wrapper>
+                <GlobalStyles />
+                <Header>
+                    <Title page={(title=== 'Pokedex') ? false : true}>{title}</Title>
+                    <ThemeSwitcher onClick={() => toggleTheme()}>
+                        {theme.title === "dark" ? (
+                            <FaSun color={theme.colors.primary} fontSize={30} />
+                        ) : (
+                            <FaMoon color={theme.colors.text} fontSize={30} />
+                        )}
+                    </ThemeSwitcher>
+                </Header>
+                <Outlet/>
+            </Wrapper>
+        </ThemeProvider>
+    )
 }

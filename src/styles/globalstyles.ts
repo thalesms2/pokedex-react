@@ -17,27 +17,11 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
         border: 0;
     }
-    :root {
-        --background: '#fff';
-        --background-card: '#F2F2F2';
-        --primary-color: '#EE6B2F';
-        --primary-hover: '#DA471B';
-        --text-color: '#313131';
-        --sub-text-color: '#919191';
-    }
-    [data-theme='dark'] {
-        --background: '#121212';
-        --background-card: '#373737';
-        --primary-color: '#EE6B2F';
-        --primary-hover: '#DA471B';
-        --text-color: '#DFDFDF';
-        --sub-text-color: '#9E9E9E';
-    }
     a {
         text-decoration: none;
     }
     body {
-        background-color: var(--background);
+        background-color: ${({ theme }) => theme.colors.background};
         transition: linear .2s;
     }
     @font-face {
@@ -75,6 +59,4 @@ export const GlobalStyles = createGlobalStyle`
         font-weight: 300;
         font-style: normal;
     }
-    `
-
-// Flexo-Medium | Flexo | Flexo Light | Flexo Bold
+`

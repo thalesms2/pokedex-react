@@ -16,19 +16,7 @@ const PokemonWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media (min-width: 1200px) {
-        margin: 0 20vw;
-    }
-    @media (max-width: 1200px) {
-        margin: 0 10vw;
-    }
-    @media (max-width: 1000px) {
-        margin: 0 5vw;
-        
-    }
-    @media (max-width: 500px) {
-        margin: 0 5vw;   
-    }
+    margin: 0 5vw;
 `
 
 const TypesDiv = styled.div`
@@ -113,11 +101,10 @@ const Select = styled.select`
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    const { handleSpriteChange, sprite } = useHandles()
+    const { handleSpriteChange, sprite, setTitle } = useHandles()
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
-
+    
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
-
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -127,11 +114,11 @@ const PokemonPage: React.FC = () => {
                         <RowWrapper>
                             <ColumnWrapper>
                                 <img src={sprite} alt={`image of ${pokemon?.info.name}`} />
-                                <Select name="sprite" defaultValue={sprite} onChange={(e) => handleSpriteChange(e.target.value)}>
+                                {/* <Select name="sprite" defaultValue={sprite} onChange={(e) => handleSpriteChange(e.target.value)}>
                                     {pokemon?.info.img.map((art: any) => {
                                         return <option key={`${art.toString()}-${pokemon?.info.name}}`} value={'placeholder'}>{'placeholder'}</option>
                                     })}
-                                </Select>
+                                </Select> */}
                                 <TypesDiv>
                                     <SubTitle>Type</SubTitle>
                                     {pokemon?.info.types.map((type: any) => {
