@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { useInfiniteQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
@@ -10,16 +9,9 @@ import Loading from './components/Loading'
 
 import useApi from './hooks/useApi'
 import useHandles from './hooks/useHandles'
+import { PokemonList, Wrapper } from './Home.styled'
 
-const PokemonList = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-`
-const Wrapper = styled.div`
-    
-`
+
 
 const Home: React.FC = () => {
     const { infinityScroll } = useApi()

@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 
 import Type from '../Type'
+
+import { Wrapper } from './Weaknesses.styled'
 
 interface WeaknessesProps {
     info: any
 }
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-`
-
 const Weaknesses: React.FC<WeaknessesProps> = (props) => {
-    
     return (
         <Wrapper>
             {props.info.map((type: string) => {
