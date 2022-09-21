@@ -20,3 +20,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </QueryClientProvider>
     </BrowserRouter>
 );
+
+// TODO Juntar styled components repetidos e fazer um geral para adicionar os que se repetem com variaveis diferentes

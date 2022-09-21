@@ -15,7 +15,7 @@ import { PokemonList, Wrapper } from './Home.styled'
 
 const Home: React.FC = () => {
     const { infinityScroll } = useApi()
-    const { search, handleInputChange } = useHandles() 
+    const { search, handleInputChange, setTitle } = useHandles() 
     const { ref, inView } = useInView()
     const {
         data,

@@ -22,6 +22,9 @@ export default function useHandles() {
     const handleSpriteChange = (value: string) => {
         setSprite(value)
     }
+    const handleTitleChange = (title: string) => {
+        setTitle(title)
+    }
     return {
         search,
         handleSubmitSearch,
@@ -31,6 +34,6 @@ export default function useHandles() {
         sprite,
         handleSpriteChange,
         title,
-        setTitle
+        handleTitleChange
     }
 }

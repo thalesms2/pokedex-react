@@ -22,7 +22,6 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         background-color: ${({ theme }) => theme.colors.background};
-        transition: linear .2s;
     }
     @font-face {
         font-family: 'Flexo';

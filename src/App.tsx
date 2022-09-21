@@ -21,6 +21,7 @@ export default function App() {
     })
     const { title } = useHandles()
     const toggleTheme = () => {
+        document.body.style.transition = "linear 2.s";
         (theme === light) ? setTheme(dark) : setTheme(light)
     }
     return (
