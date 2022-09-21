@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import PokemonCard from './components/PokemonCard'
 import Filter from './components/Filter'
@@ -15,7 +15,7 @@ import { PokemonList, Wrapper } from './Home.styled'
 
 const Home: React.FC = () => {
     const { infinityScroll } = useApi()
-    const { search, handleInputChange, setTitle } = useHandles() 
+    const { search, handleInputChange } = useHandles() 
     const { ref, inView } = useInView()
     const {
         data,
@@ -25,12 +25,9 @@ const Home: React.FC = () => {
     } = useInfiniteQuery (
         'pokemons',
         ({pageParam = 0}) => infinityScroll(pageParam),
-        {
-            getNextPageParam: (page, all) => (page.length * all.length)
-        }
+        { getNextPageParam: (page, all) => (page.length * all.length) }
     )
-    
-    useEffect(() => {
+    React.useEffect(() => {
         if (inView) {
             fetchNextPage()
         }

@@ -1,12 +1,11 @@
 import { ThemeProvider } from "styled-components"
 import React from 'react'
 
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { FaSun, FaMoon } from 'react-icons/fa'
 
 import { light, dark } from "./styles/themes/Theme.styled"
 import { GlobalStyles } from './styles/globalstyles'
-import useHandles from "./hooks/useHandles";
 import {
     Header,
     Title,
@@ -19,9 +18,8 @@ export default function App() {
         const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         return isDarkMode ? dark : light 
     })
-    const { title } = useHandles()
     const toggleTheme = () => {
-        document.body.style.transition = "linear 2.s";
+        document.body.style.transition = "linear .2s";
         (theme === light) ? setTheme(dark) : setTheme(light)
     }
     return (
@@ -29,7 +27,7 @@ export default function App() {
             <Wrapper>
                 <GlobalStyles />
                 <Header>
-                    <Title page={(title=== 'Pokedex') ? false : true}>{title}</Title>
+                    <Link to="/"><Title>Pokedex</Title></Link>
                     <ThemeSwitcher onClick={() => toggleTheme()}>
                         {theme.title === "dark" ? (
                             <FaSun color={theme.colors.primary} fontSize={30} />

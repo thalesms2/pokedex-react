@@ -1,9 +1,5 @@
 import styled from 'styled-components'
 
-interface PokemonPageProp {
-    page?: boolean
-}
-
 export const Header = styled.div`
     display: flex;
     flex-direction: row;
@@ -11,14 +7,12 @@ export const Header = styled.div`
     align-items: center;
 `
 
-export const Title = styled.h1<PokemonPageProp>`
+export const Title = styled.h1`
     color: ${({ theme }) => theme.colors.text};
     font-family: "Flexo",arial,sans-serif;
     font-weight: 600;
     line-height: 125%;
-    font-size: ${props => props.page ? 'font-size: 145%;' : '3em'};
-    ${props => props.page ? 'text-transform: capitalize;': ''}
-    ${props => props.page ? 'margin-bottom: 5px;': ''}
+    font-size: 3em;
     margin-right: .5em;
     transition: linear .2s;
 `

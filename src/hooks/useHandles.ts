@@ -9,7 +9,6 @@ export default function useHandles() {
     const [search, setSearch] = useState<string>('')
     const [gameDescription, setGameDescription] = useState(0)
     const [sprite, setSprite] = useState<string>('')
-    const [title, setTitle] = useState('Pokedex')
     const handleSubmitSearch = () => {
         searchPokemon(search)
     }
@@ -22,9 +21,6 @@ export default function useHandles() {
     const handleSpriteChange = (value: string) => {
         setSprite(value)
     }
-    const handleTitleChange = (title: string) => {
-        setTitle(title)
-    }
     return {
         search,
         handleSubmitSearch,
@@ -32,8 +28,6 @@ export default function useHandles() {
         gameDescription,
         handleGameDescriptionChange,
         sprite,
-        handleSpriteChange,
-        title,
-        handleTitleChange
+        handleSpriteChange
     }
 }

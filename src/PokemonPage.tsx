@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, useParams } from "react-router-dom"
 
 import Type from "./components/Type"
@@ -26,14 +26,10 @@ import {
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
     const { searchPokemon } = useApi()
-    const { handleSpriteChange, sprite, handleTitleChange } = useHandles()
+    const { handleSpriteChange, sprite } = useHandles()
     const { data: pokemon, isLoading } = useQuery(pokemonName as string, () => searchPokemon(pokemonName as string))
-    
-    useEffect(() => {
-        handleTitleChange(pokemon?.info.name)
-    })
-
     const id = `N°${String(pokemon?.info.id).padStart(3, '0')}`
+
     function pokemonRender() {
         if(isLoading) {
             return <Loading />
@@ -65,7 +61,8 @@ const PokemonPage: React.FC = () => {
                                     height={pokemon?.info.height} 
                                     weight={pokemon?.info.weight}
                                     abilities={pokemon?.info.abilities}
-                                    gender={pokemon?.info.gender} />
+                                    gender={pokemon?.info.gender} 
+                                />
                                 <Stats stats={pokemon?.info.stats}>
                                     <SubTitle>Stats</SubTitle>
                                 </Stats>
