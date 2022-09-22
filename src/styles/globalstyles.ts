@@ -22,7 +22,6 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         background-color: ${({ theme }) => theme.colors.background};
-        transition: linear .2s;
     }
     @font-face {
         font-family: 'Flexo';
@@ -59,6 +58,4 @@ export const GlobalStyles = createGlobalStyle`
         font-weight: 300;
         font-style: normal;
     }
-    `
-
-// Flexo-Medium | Flexo | Flexo Light | Flexo Bold
+`
