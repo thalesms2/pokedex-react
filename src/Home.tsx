@@ -9,9 +9,7 @@ import Loading from './components/Loading'
 
 import useApi from './hooks/useApi'
 import useHandles from './hooks/useHandles'
-import { PokemonList, Wrapper } from './Home.styled'
-
-
+import { PokemonList, Wrapper, InfinityScroll } from './Home.styled'
 
 const Home: React.FC = () => {
     const { infinityScroll } = useApi()
@@ -48,13 +46,13 @@ const Home: React.FC = () => {
                 </React.Fragment>
             ))}
             </PokemonList>
-            <div ref={ref}>
+            <InfinityScroll ref={ref}>
             {isFetchingNextPage
                 ? <Loading />
                 : hasNextPage
                 ? 'Load Newer'
                 : 'Nothing more to load'}
-            </div>
+            </InfinityScroll>
         </Wrapper>
     )
 }

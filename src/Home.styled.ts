@@ -9,3 +9,7 @@ export const PokemonList = styled.div`
 export const Wrapper = styled.div`
     
 `
+
+export const InfinityScroll = styled.div`
+    height: 2em;
+`

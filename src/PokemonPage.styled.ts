@@ -85,3 +85,15 @@ export const Select = styled.select`
         border-radius: 20px;
     }
 `
+
+export const Title = styled.h2`
+    color: ${({ theme }) => theme.colors.text};
+    font-family: "Flexo",arial,sans-serif;
+    font-weight: 600;
+    line-height: 125%;
+    font-size: 2.3em;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    margin-right: .5em;
+    transition: linear .2s;
+`
