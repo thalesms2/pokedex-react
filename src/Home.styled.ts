@@ -11,5 +11,5 @@ export const Wrapper = styled.div`
 `
 
 export const InfinityScroll = styled.div`
-    height: 2em;
+    height: 30vh;
 `

@@ -47,11 +47,7 @@ const Home: React.FC = () => {
             ))}
             </PokemonList>
             <InfinityScroll ref={ref}>
-            {isFetchingNextPage
-                ? <Loading />
-                : hasNextPage
-                ? 'Load Newer'
-                : 'Nothing more to load'}
+                <Loading />
             </InfinityScroll>
         </Wrapper>
     )

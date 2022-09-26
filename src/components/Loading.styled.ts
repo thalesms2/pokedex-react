@@ -10,10 +10,9 @@ const pokeballAnimation = keyframes`
 `
 
 export const LoadingDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  display: flex;
+  justify-content: center;
 `
 export const Pokeball = styled.div`
   width: 60px;
