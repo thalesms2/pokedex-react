@@ -2,14 +2,14 @@ import { useQuery } from "react-query"
 import React from 'react'
 import { Link, useParams } from "react-router-dom"
 
-import Type from "./components/Type"
-import Loading from "./components/Loading"
-import Stats from "./components/PokemonPage/Stats"
-import Description from "./components/PokemonPage/Description"
-import Info from "./components/PokemonPage/Info"
-import Weaknesses from "./components/PokemonPage/Weaknesses"
+import Type from "../components/Type"
+import Loading from "../components/Loading"
+import Stats from "../components/PokemonPage/Stats"
+import Description from "../components/PokemonPage/Description"
+import Info from "../components/PokemonPage/Info"
+import Weaknesses from "../components/PokemonPage/Weaknesses"
 
-import useApi from "./hooks/useApi"
+import useApi from "../hooks/useApi"
 import {
     PokemonWrapper,
     TypesDiv,

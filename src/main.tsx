@@ -3,8 +3,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App";
-import PokemonPage from "./PokemonPage";
-import Home from "./Home";
+import PokemonPage from "./pages/PokemonPage";
+import Home from "./pages/Home";
 
 const queryClient = new QueryClient();
 
@@ -20,5 +20,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </QueryClientProvider>
     </BrowserRouter>
 );
-
-// TODO Juntar styled components repetidos e fazer um geral para adicionar os que se repetem com variaveis diferentes

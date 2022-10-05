@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import React from 'react'
 
-import PokemonCard from './components/PokemonCard'
-import Filter from './components/Filter'
-import Loading from './components/Loading'
+import PokemonCard from '../components/PokemonCard'
+import Filter from '../components/Filter'
+import Loading from '../components/Loading'
 
-import useApi from './hooks/useApi'
-import useHandles from './hooks/useHandles'
+import useApi from '../hooks/useApi'
+import useHandles from '../hooks/useHandles'
 import { PokemonList, Wrapper, InfinityScroll } from './Home.styled'
 
 const Home: React.FC = () => {
