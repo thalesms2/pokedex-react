@@ -1,12 +1,5 @@
 import styled from 'styled-components'
 
-export const Header = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-`
-
 export const Title = styled.h1`
     color: ${({ theme }) => theme.colors.text};
     font-family: "Flexo",arial,sans-serif;

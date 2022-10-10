@@ -1,22 +1,27 @@
-import useHandles from '../../hooks/useHandles'
+import useHandles from '../../../hooks/useHandles'
 import {
     DescriptionWrapper,
     DescriptionText,
     LabelSelect,
     Select
 } from './Description.styled'
-interface DescriptionProps {
-    info: any
+
+interface DescriptionInfo {
+    language: string;
+    text: string;
+    version: number;
+    versionFixed: string;
 }
-
-
+interface DescriptionProps {
+    info: DescriptionInfo[];
+}
 
 const Description = ({ info }: DescriptionProps) => {
     const {
         gameDescription,
         handleGameDescriptionChange
     } = useHandles()
-
+    
     return (
         <DescriptionWrapper>
             <DescriptionText>

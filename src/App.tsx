@@ -7,11 +7,11 @@ import { FaSun, FaMoon } from 'react-icons/fa'
 import { light, dark } from "./styles/themes/Theme.styled"
 import { GlobalStyles } from './styles/globalstyles'
 import {
-    Header,
     Title,
     ThemeSwitcher,
     Wrapper
 } from './App.styled'
+import { FlexBox } from "./components/FlexBox";
 
 export default function App() {
     const [theme, setTheme] = React.useState(() => {
@@ -26,7 +26,7 @@ export default function App() {
         <ThemeProvider theme={theme}>
             <Wrapper>
                 <GlobalStyles />
-                <Header>
+                <FlexBox align="center" direction="row" justify="space-between" >
                     <Link to="/"><Title>Pokedex</Title></Link>
                     <ThemeSwitcher onClick={() => toggleTheme()}>
                         {theme.title === "dark" ? (
@@ -35,7 +35,7 @@ export default function App() {
                             <FaMoon color={theme.colors.text} fontSize={30} />
                         )}
                     </ThemeSwitcher>
-                </Header>
+                </FlexBox>
                 <Outlet/>
             </Wrapper>
         </ThemeProvider>

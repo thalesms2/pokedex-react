@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import Type from '../Type'
+import Type from '../../Type'
 
 import { Wrapper } from './Weaknesses.styled'
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import React from 'react'
 
-import PokemonCard from '../components/PokemonCard'
-import Filter from '../components/Filter'
+import PokemonCard from '../components/Home/PokemonCard'
+import Filter from '../components/Home/Filter'
 import Loading from '../components/Loading'
 
 import useApi from '../hooks/useApi'

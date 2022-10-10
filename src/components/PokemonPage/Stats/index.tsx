@@ -1,7 +1,7 @@
 import React from 'react'
-import useApi from '../../hooks/useApi'
+import useApi from '../../../hooks/useApi'
 
-import StatsBar from './StatsBar'
+import StatsBar from '../StatsBar'
 import {
     Wrapper,
     RowWrapper,
