@@ -19,7 +19,7 @@ import {
     BackButton,
     Select,
     Title
-} from '../styles/PokemonPage.styled'
+} from './PokemonPage.styled'
 
 const PokemonPage: React.FC = () => {
     const { pokemonName } = useParams()
